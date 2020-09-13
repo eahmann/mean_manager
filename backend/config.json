@@ -1,0 +1,13 @@
+﻿{
+    "connectionString": "mongodb+srv://eric:eric@cluster0.ehiks.mongodb.net/test?retryWrites=true&w=majority",
+    "secret": "020b86776f5a43df92c4968b9e3343ed832e529473474e0b8b2ec7d8472d7da08d767b159a2e4cd69369bb1058460765dad1333c185347088adb226e664b1c9b",
+    "emailFrom": "info@node-mongo-signup-verification-api.com",
+    "smtpOptions": {
+        "host": "smtp.ethereal.email",
+        "port": 587,
+        "auth": {
+            "user": "mikel.denesik61@ethereal.email",
+            "pass": "SRRUqA9vkJDRxsZNVk"
+        }
+    }
+}
