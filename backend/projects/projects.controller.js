@@ -11,6 +11,7 @@ router.get('/', authorize(Role.Admin), getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
+router.delete('/:id', authorize(), _delete);
 
 module.exports = router;
 
@@ -73,5 +74,16 @@ function update(req, res, next) {
 
     projectService.update(req.params.id, req.body)
         .then(project => res.json(project))
+        .catch(next);
+}
+
+function _delete(req, res, next) {
+    // users can delete their own account and admins can delete any account
+    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    projectService.delete(req.params.id)
+        .then(() => res.json({ message: 'Project deleted successfully' }))
         .catch(next);
 }

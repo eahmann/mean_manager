@@ -7,7 +7,8 @@ module.exports = {
     getAll,
     getById,
     create,
-    update
+    update,
+    delete: _delete
 };
 
 async function getAll() {
@@ -39,6 +40,11 @@ async function update(id, params) {
     await project.save();
 
     return basicProject(project);
+}
+
+async function _delete(id) {
+    const project = await getProject(id);
+    await project.remove();
 }
 
 
