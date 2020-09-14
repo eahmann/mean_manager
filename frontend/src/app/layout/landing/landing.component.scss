@@ -1,0 +1,40 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+.full-background {
+    height: calc(100vh - 56px);
+    background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media (min-width: 600px) {
+    .full-background {
+        height: calc(100vh - 64px);
+    }
+}
+
+.inline-flex {
+    display: inline-flex!important;
+}
+
+.larger {
+    font-size: larger;
+}
+
+.toolbar-link {
+    background: #f5f5f5;
+    color: rgba(0,0,0,.87);
+}
+
+// TODO: refactor these
+a:focus {
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}

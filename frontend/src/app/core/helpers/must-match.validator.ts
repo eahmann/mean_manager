@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 // custom validator to check that two fields match
-export function MustMatch(controlName: string, matchingControlName: string) {
+export function MustMatch(controlName: string, matchingControlName: string): any {
     return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
@@ -18,5 +18,5 @@ export function MustMatch(controlName: string, matchingControlName: string) {
         } else {
             matchingControl.setErrors(null);
         }
-    }
+    };
 }

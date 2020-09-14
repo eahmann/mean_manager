@@ -1,3 +1,4 @@
+import { MaterialModule } from '@shared/material';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,8 @@ import { ResetPasswordComponent } from './reset-password';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        AccountRoutingModule
+        AccountRoutingModule,
+        MaterialModule
     ],
     declarations: [
         LayoutComponent,

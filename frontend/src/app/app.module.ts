@@ -1,4 +1,7 @@
-﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
+﻿import { ContentComponent } from './layout/content/content.component';
+import { MaterialModule } from './shared/material/material.module';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -10,7 +13,8 @@ import { AlertComponent } from '@shared/components';
 import { HomeComponent } from './home';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NavComponent } from './layout/nav/nav.component';
+import { LandingComponent } from './layout/landing/landing.component';
 
 @NgModule({
     imports: [
@@ -19,11 +23,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        MaterialModule,
+        FlexLayoutModule
     ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
+        NavComponent,
+        LandingComponent,
+        ContentComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },

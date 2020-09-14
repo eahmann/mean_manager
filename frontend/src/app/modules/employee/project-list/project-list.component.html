@@ -1,0 +1,33 @@
+
+
+<mat-card class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width:30%">Name</th>
+                <th style="width:30%">Description</th>
+                <th style="width:30%">Role</th>
+                <th style="width:10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let account of projects">
+                <td>{{account.title}}</td>
+                <td>{{account.description}}</td>
+                <td>{{account.role}}</td>
+                <td style="white-space: nowrap">
+                    <a routerLink="edit/{{account.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                    <button (click)="deleteProject(account.id)" class="btn btn-sm btn-danger btn-delete-account" [disabled]="account.isDeleting">
+                        <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
+                        <span *ngIf="!account.isDeleting">Delete</span>
+                    </button>
+                </td>
+            </tr>
+            <tr *ngIf="!projects">
+                <td colspan="4" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</mat-card>

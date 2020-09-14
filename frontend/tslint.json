@@ -130,9 +130,11 @@
         "check-operator",
         "check-separator",
         "check-type",
-        "check-typecast"
+        "check-typecast",
+        "check-module"
       ]
     },
+    "import-destructuring-spacing": true,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,

@@ -1,0 +1,22 @@
+.full-width-p0 {
+    width: 100%;
+    padding: 0px;
+}
+
+.full-width {
+    width: 100%;
+  }
+
+// TODO: refactor these
+a:focus {
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.button:focus {
+    outline: none;
+}
