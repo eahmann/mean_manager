@@ -2,7 +2,7 @@
 a { cursor: pointer; }
 
 .app-container {
-    min-height: 320px;
+    min-height: 100%;
 }
 
 .admin-nav {
@@ -22,5 +22,37 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 .transparent-card {
-        background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.75);
+}
+
+.mat-expansion-panel-body {
+    padding: 0!important;
+  }
+
+.mat-sidenav-content {
+    height: 100%!important;
+  }
+
+.inline-flex {
+    display: inline-flex!important;
+}
+
+.snackbar-success {
+    background-color: #0ea800c5;
+    color: whitesmoke;
+
+    .mat-button-wrapper{
+        color: whitesmoke;
+        font-weight: 700;
+    }
+}
+
+.snackbar-error {
+    background-color: #a80000c5;
+    color: whitesmoke;
+
+    .mat-button-wrapper{
+        color: whitesmoke;
+        font-weight: 700;
+    }
 }

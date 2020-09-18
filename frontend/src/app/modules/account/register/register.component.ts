@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@core/services';
 import { MustMatch } from '@core/helpers';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 @Component({
     templateUrl: 'register.component.html',
     styleUrls: ['./register.component.scss']
@@ -20,7 +22,8 @@ export class RegisterComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private _snackBar: MatSnackBar
     ) { }
 
     ngOnInit(): void {
@@ -28,7 +31,7 @@ export class RegisterComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]],
+            password: ['', [Validators.required]],
             confirmPassword: ['', Validators.required],
         }, {
             validator: MustMatch('password', 'confirmPassword')
@@ -53,13 +56,21 @@ export class RegisterComponent implements OnInit {
         this.accountService.register(this.form.value)
             .pipe(first())
             .subscribe({
-                next: () => {
-                    this.alertService.success(
-                        'Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
+                next: response => {
+                    console.log(response.message)
+                    this._snackBar.open(response.message, 'SUCCESS', {
+                        duration: 5000,
+                        verticalPosition: 'top',
+                        panelClass: 'snackbar-success'
+                      });
                     this.router.navigate(['../login'], { relativeTo: this.route });
                 },
                 error: error => {
-                    this.alertService.error(error);
+                    this._snackBar.open(error, 'ERROR', {
+                        duration: 5000,
+                        verticalPosition: 'top',
+                        panelClass: 'snackbar-error',
+                      });
                     this.loading = false;
                 }
             });

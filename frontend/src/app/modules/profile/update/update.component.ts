@@ -24,7 +24,6 @@ export class UpdateComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this.formBuilder.group({
-            title: [this.account.title, Validators.required],
             firstName: [this.account.firstName, Validators.required],
             lastName: [this.account.lastName, Validators.required],
             email: [this.account.email, [Validators.required, Validators.email]],

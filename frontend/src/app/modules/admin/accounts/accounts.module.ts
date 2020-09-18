@@ -1,6 +1,9 @@
+import { EnumToArrayPipe } from '@core/pipes/enum-to-array.pipe';
+import { MaterialModule } from '@shared/material';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { ListComponent } from './list';
@@ -10,11 +13,14 @@ import { AddEditComponent } from './add-edit';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        AccountsRoutingModule
+        FormsModule,
+        AccountsRoutingModule,
+        MaterialModule
     ],
     declarations: [
         ListComponent,
-        AddEditComponent
+        AddEditComponent,
+        EnumToArrayPipe
     ]
 })
 export class AccountsModule { }

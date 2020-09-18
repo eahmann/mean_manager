@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 
@@ -74,6 +74,19 @@ export class AccountService {
 
     getAll(): Observable<Account[]> {
         return this.http.get<Account[]>(baseUrl);
+    }
+
+    search(filter = '', sortOrder = 'asc', pageNumber = 1, pageSize = 3): Observable<Account[]> {
+        const payload = 'payload';
+        return this.http.get(`${baseUrl}/search`, {
+            params: new HttpParams()
+                .set('filter', filter)
+                .set('sortOrder', sortOrder)
+                .set('pageNumber', pageNumber.toString())
+                .set('pageSize', pageSize.toString())
+        }).pipe(
+            map(res =>  res[payload])
+        );
     }
 
     getById(id: string): Observable<Account> {

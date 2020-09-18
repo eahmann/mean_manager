@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@core/services';
 import { MustMatch } from '@core/helpers';
+import { Role } from '@core/models';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -13,21 +14,23 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean;
     loading = false;
     submitted = false;
+    roles: typeof Role = Role;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
-    ) {}
+        private alertService: AlertService,
+    ) {
+        console.log('Roles', this.roles);
+    }
 
     ngOnInit(): void {
         this.id = this.route.snapshot.params.id;
         this.isAddMode = !this.id;
 
         this.form = this.formBuilder.group({
-            title: ['', Validators.required],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],

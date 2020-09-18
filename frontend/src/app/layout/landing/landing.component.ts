@@ -1,11 +1,9 @@
+import { NavigateService } from '@core/services';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuItem } from '@core/models';
 
-interface MenuItem {
-  label: string;
-  icon: string;
-  path: string;
-}
+
 
 @Component({
   selector: 'app-landing',
@@ -32,14 +30,13 @@ export class LandingComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) { }
+  constructor(private _navigate: NavigateService) { }
 
   ngOnInit(): void {
   }
 
-  navigate(path: string): void {
-    console.log(path);
-    this.router.navigateByUrl(path);
+  navigate(path: string): void{
+    this._navigate.go(path);
   }
 
 }

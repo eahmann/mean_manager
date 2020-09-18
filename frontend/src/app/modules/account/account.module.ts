@@ -10,6 +10,7 @@ import { RegisterComponent } from './register';
 import { VerifyEmailComponent } from './verify-email';
 import { ForgotPasswordComponent } from './forgot-password';
 import { ResetPasswordComponent } from './reset-password';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import { ResetPasswordComponent } from './reset-password';
         RegisterComponent,
         VerifyEmailComponent,
         ForgotPasswordComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        LogoutComponent
     ]
 })
 export class AccountModule { }
