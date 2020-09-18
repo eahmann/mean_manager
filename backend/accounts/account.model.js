@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const textSearch = require('mongoose-partial-full-search');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -31,5 +32,9 @@ schema.set('toJSON', {
         delete ret.passwordHash;
     }
 });
+
+schema.plugin(textSearch);
+
+schema.index({'$**': 'text'});
 
 module.exports = mongoose.model('Account', schema);

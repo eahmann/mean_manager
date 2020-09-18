@@ -16,6 +16,7 @@ module.exports = {
     validateResetToken,
     resetPassword,
     getAll,
+    search,
     getById,
     create,
     update,
@@ -80,7 +81,8 @@ async function register(params, origin) {
     // validate
     if (await db.Account.findOne({ email: params.email })) {
         // send already registered error in email to prevent account enumeration
-        return await sendAlreadyRegisteredEmail(params.email, origin);
+        await sendAlreadyRegisteredEmail(params.email, origin);
+        throw new Error('Accout already exists with that email');
     }
 
     // create account object
@@ -153,8 +155,38 @@ async function resetPassword({ token, password }) {
 }
 
 async function getAll() {
-    const accounts = await db.Account.find();
+const accounts = await db.Account.find()
+console.log('hello')
     return accounts.map(x => basicDetails(x));
+}
+
+async function search(query) {
+    const queryParams = query;
+
+    const filter = queryParams.filter || '',
+        sortOrder = queryParams.sortOrder,
+        pageNumber = parseInt(queryParams.pageNumber) || 0,
+        pageSize = parseInt(queryParams.pageSize);
+
+        console.log(filter)
+
+        if (filter) {
+            accounts = await db.Account.search(filter)
+            console.log(accounts)
+        }
+        else {
+            accounts = await db.Account.find()
+        }
+
+        if (sortOrder == "desc") {
+          accounts = accounts.reverse();
+        }
+        
+        const initialPos = (pageNumber - 1) * pageSize;
+
+        const accountsPage = accounts.slice(initialPos, initialPos + pageSize);
+          
+    return accountsPage.map(x => basicDetails(x));
 }
 
 async function getById(id) {
