@@ -160,7 +160,7 @@ function getAll(req, res, next) {
 }
 
 function search(req, res, next) {
-    accountService.search(req.query)
+    accountService.search(req.query, res)
         .then(accounts => res.json(accounts))
         .catch(next);
 }

@@ -160,33 +160,40 @@ console.log('hello')
     return accounts.map(x => basicDetails(x));
 }
 
-async function search(query) {
+async function search(query, res) {
     const queryParams = query;
 
     const filter = queryParams.filter || '',
-        sortOrder = queryParams.sortOrder,
-        pageNumber = parseInt(queryParams.pageNumber) || 0,
-        pageSize = parseInt(queryParams.pageSize);
+        sort = queryParams.sort,
+        order = queryParams.order,
+        pageNumber = parseInt(queryParams.page) || 0,
+        pageSize = parseInt(queryParams.amount);
 
-        console.log(filter)
+    console.log(filter)
 
-        if (filter) {
-            accounts = await db.Account.search(filter)
-            console.log(accounts)
-        }
-        else {
-            accounts = await db.Account.find()
-        }
+    if (filter) {
+        accounts = await db.Account.search(filter)
+        console.log(accounts)
+    }
+    else {
+        accounts = await db.Account.find()
+    }
 
-        if (sortOrder == "desc") {
-          accounts = accounts.reverse();
-        }
-        
-        const initialPos = (pageNumber - 1) * pageSize;
+    if (sort) {
+        accounts = accounts.sort(sort)
+    }
 
-        const accountsPage = accounts.slice(initialPos, initialPos + pageSize);
+    if (order == "desc") {
+        accounts = accounts.reverse();
+    }
+    
+    const initialPos = (pageNumber) * pageSize;
+    const count = await db.Account.countDocuments();
+    const accountsPage = accounts.slice(initialPos, initialPos + pageSize).map(x => basicDetails(x));
           
-    return accountsPage.map(x => basicDetails(x));
+    return { items: accountsPage, total_count: count }
+
+
 }
 
 async function getById(id) {

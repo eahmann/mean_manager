@@ -1,11 +1,12 @@
-﻿import { Injectable } from '@angular/core';
+﻿import {  } from './../models/accountSearchResults';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Account } from '@core/models';
+import { Account, AccountSearchResult } from '@core/models';
 
 const baseUrl = `${environment.apiUrl}/accounts`;
 
@@ -76,17 +77,16 @@ export class AccountService {
         return this.http.get<Account[]>(baseUrl);
     }
 
-    search(filter = '', sortOrder = 'asc', pageNumber = 1, pageSize = 3): Observable<Account[]> {
+    search(filter = '', sort = '', order = 'asc', pageNumber = 1, pageSize = 3): Observable<AccountSearchResult> {
         const payload = 'payload';
-        return this.http.get(`${baseUrl}/search`, {
+        return this.http.get<AccountSearchResult>(`${baseUrl}/search`, {
             params: new HttpParams()
                 .set('filter', filter)
-                .set('sortOrder', sortOrder)
-                .set('pageNumber', pageNumber.toString())
-                .set('pageSize', pageSize.toString())
-        }).pipe(
-            map(res =>  res[payload])
-        );
+                .set('sort', sort)
+                .set('order', order)
+                .set('page', pageNumber.toString())
+                .set('amount', pageSize.toString())
+        });
     }
 
     getById(id: string): Observable<Account> {
