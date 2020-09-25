@@ -4,12 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
-import { LayoutComponent } from './layout';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { VerifyEmailComponent } from './verify-email';
 import { ForgotPasswordComponent } from './forgot-password';
 import { ResetPasswordComponent } from './reset-password';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
     imports: [
@@ -19,12 +19,12 @@ import { ResetPasswordComponent } from './reset-password';
         MaterialModule
     ],
     declarations: [
-        LayoutComponent,
         LoginComponent,
         RegisterComponent,
         VerifyEmailComponent,
         ForgotPasswordComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        LogoutComponent
     ]
 })
 export class AccountModule { }

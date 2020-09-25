@@ -1,20 +1,28 @@
+import { EnumToArrayPipe } from '@core/pipes/enum-to-array.pipe';
+import { MaterialModule } from '@shared/material';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+
 import { AccountsRoutingModule } from './accounts-routing.module';
-import { ListComponent } from './list.component';
-import { AddEditComponent } from './add-edit.component';
+import { ListComponent } from './list';
+import { AddEditComponent } from './add-edit';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        AccountsRoutingModule
+        FormsModule,
+        AccountsRoutingModule,
+        MaterialModule,
+        NgxDatatableModule
     ],
     declarations: [
         ListComponent,
-        AddEditComponent
+        AddEditComponent,
+        EnumToArrayPipe
     ]
 })
 export class AccountsModule { }

@@ -5,8 +5,8 @@ export class Project {
     active: boolean;
     customerId: string;
     locationId: string;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date;
+    endDate?: Date;
     created: Date;
-    updated: Date;
+    updated?: Date;
 }

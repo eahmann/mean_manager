@@ -1,18 +1,90 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav #drawer class="sidenav mat-elevation-z2" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar><img src="assets/images/hci_logo_horiz_jbfi0if.height-40.png"></mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item nav-link">Home</a>
-      <a mat-list-item routerLink="/admin" routerLinkActive="active" class="nav-item nav-link">Admin</a>
-      <a mat-list-item routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">Profile</a>
-      <a  mat-list-item (click)="logout()" class="nav-item nav-link">Logout</a>
+      <div *ngIf="account.role === Role.Admin">
+          <a  
+          mat-list-item 
+          routerLink="/" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{exact: true}" 
+          (click)="clickHandler()" 
+          class="nav-item nav-link"
+          >
+          <mat-icon>home</mat-icon><span> Dashboard</span>
+        </a>
+        <a  
+        mat-list-item 
+        routerLink="/projects" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{exact: true}" 
+        (click)="clickHandler()" 
+        class="nav-item nav-link"
+        >
+        <mat-icon>build</mat-icon><span> Projects</span>
+      </a>
+      <a  
+      mat-list-item 
+      routerLink="/accounts" 
+      routerLinkActive="active" 
+      [routerLinkActiveOptions]="{exact: true}" 
+      (click)="clickHandler()" 
+      class="nav-item nav-link"
+      >
+      <mat-icon>work</mat-icon><span> Employees</span>
+    </a>
+    <a  
+    mat-list-item 
+    routerLink="/accounts" 
+    routerLinkActive="active" 
+    [routerLinkActiveOptions]="{exact: true}" 
+    (click)="clickHandler()" 
+    class="nav-item nav-link"
+    >
+    <mat-icon>people</mat-icon><span> Customers</span>
+  </a>
+
+          <a  
+          mat-list-item 
+          routerLink="/accounts" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{exact: true}" 
+          (click)="clickHandler()" 
+          class="nav-item nav-link"
+          >
+          <mat-icon>account_box</mat-icon><span> Accounts</span>
+        </a>
+        <a  
+        mat-list-item 
+        routerLink="/time" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{exact: true}" 
+        (click)="clickHandler()" 
+        class="nav-item nav-link"
+        >
+        <mat-icon>schedule</mat-icon><span> Time Cards</span>
+      </a>
+      </div>
+    <mat-divider *ngIf="isHandset$ | async"></mat-divider>
+    <a 
+    *ngIf="isHandset$ | async"
+     mat-list-item 
+     routerLink="/profile" 
+     routerLinkActive="active" 
+     (click)="clickHandler()" 
+     fxHide.md 
+     class="nav-item nav-link"
+     >
+     <mat-icon>settings</mat-icon> My Account
+    </a>
+    <a *ngIf="isHandset$ | async" tabindex="0" mat-list-item (click)="logout()" fxShow.xs class="nav-item nav-link"><mat-icon>power_settings_new</mat-icon> Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" fxLayout="row" class="mat-elevation-z2 inline-flex">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -21,13 +93,12 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>angular-signup-verification-boilerplate</span>
+      <span fxFlex>Welcome, {{ account.firstName }} {{ account.lastName }} </span>
+      <button mat-button *ngFor="let item of menuItems" fxHide.xs (click)="navigate(item.path)">
+        <mat-icon class="mr">{{item.icon}}</mat-icon>
+        {{item.label}}
+    </button>
     </mat-toolbar>
-    <div class="p-4">
-      <div class="container">
-          <router-outlet></router-outlet>
-      </div>
-  </div>
-  
+      <app-content></app-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
