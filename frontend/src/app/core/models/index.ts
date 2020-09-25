@@ -8,4 +8,3 @@ export * from './accountSearchResults';
 
 export * from './page';
 export * from './paged-data';
-export * from './account2';
