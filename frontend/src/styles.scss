@@ -1,3 +1,10 @@
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+
 // global styles
 a { cursor: pointer; }
 
@@ -17,6 +24,7 @@ a { cursor: pointer; }
     text-align: center;
     box-sizing: content-box;
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -56,3 +64,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         font-weight: 700;
     }
 }
+
+.loading-results-spinner {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background: white;
+}
+
+.mat-column-actions {
+    text-align: right!important;
+  }

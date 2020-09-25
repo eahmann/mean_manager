@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { ListComponent } from './list';
 import { AddEditComponent } from './add-edit';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { AddEditComponent } from './add-edit';
         ReactiveFormsModule,
         FormsModule,
         AccountsRoutingModule,
-        MaterialModule
+        MaterialModule,
+        NgxDatatableModule
     ],
     declarations: [
         ListComponent,

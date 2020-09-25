@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
-import { LayoutComponent } from './layout';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { VerifyEmailComponent } from './verify-email';
@@ -20,7 +19,6 @@ import { LogoutComponent } from './logout/logout.component';
         MaterialModule
     ],
     declarations: [
-        LayoutComponent,
         LoginComponent,
         RegisterComponent,
         VerifyEmailComponent,

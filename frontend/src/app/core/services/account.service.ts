@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Account, AccountSearchResult } from '@core/models';
+import { Account, AccountSearchResult, Page } from '@core/models';
 
 const baseUrl = `${environment.apiUrl}/accounts`;
 
@@ -88,6 +88,18 @@ export class AccountService {
                 .set('amount', pageSize.toString())
         });
     }
+
+    // search2(page: Page): Observable<AccountSearchResult> {
+    //     const payload = 'payload';
+    //     return this.http.get<AccountSearchResult>(`${baseUrl}/search`, {
+    //         params: new HttpParams()
+    //             .set('filter', '')
+    //             .set('sort', page.)
+    //             .set('order', order)
+    //             .set('page', pageNumber.toString())
+    //             .set('amount', pageSize.toString())
+    //     });
+    // }
 
     getById(id: string): Observable<Account> {
         return this.http.get<Account>(`${baseUrl}/${id}`);

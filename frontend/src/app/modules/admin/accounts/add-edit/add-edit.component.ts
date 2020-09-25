@@ -23,7 +23,6 @@ export class AddEditComponent implements OnInit {
         private accountService: AccountService,
         private alertService: AlertService,
     ) {
-        console.log('Roles', this.roles);
     }
 
     ngOnInit(): void {
@@ -70,6 +69,10 @@ export class AddEditComponent implements OnInit {
         }
     }
 
+    onCancel(): void {
+        this.router.navigateByUrl('/accounts');
+    }
+
     private createAccount(): void {
         this.accountService.create(this.form.value)
             .pipe(first())
@@ -91,7 +94,7 @@ export class AddEditComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.alertService.success('Update successful', { keepAfterRouteChange: true });
-                    this.router.navigate(['../../'], { relativeTo: this.route });
+                    this.router.navigate(['../'], { relativeTo: this.route });
                 },
                 error: error => {
                     this.alertService.error(error);

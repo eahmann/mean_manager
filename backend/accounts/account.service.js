@@ -156,7 +156,6 @@ async function resetPassword({ token, password }) {
 
 async function getAll() {
 const accounts = await db.Account.find()
-console.log('hello')
     return accounts.map(x => basicDetails(x));
 }
 
@@ -166,30 +165,24 @@ async function search(query, res) {
     const filter = queryParams.filter || '',
         sort = queryParams.sort,
         order = queryParams.order,
-        pageNumber = parseInt(queryParams.page) || 0,
-        pageSize = parseInt(queryParams.amount);
+        page = parseInt(queryParams.page) || 0,
+        size = parseInt(queryParams.size);
 
-    console.log(filter)
+    accounts = await db.Account.fuzzySearch(filter).skip(page * size).limit(size)
 
-    if (filter) {
-        accounts = await db.Account.search(filter)
-        console.log(accounts)
-    }
-    else {
-        accounts = await db.Account.find()
-    }
+    // console.log(accounts)
 
-    if (sort) {
-        accounts = accounts.sort(sort)
-    }
+    // if (sort) { // SORT NOT WORKING
+    //     accounts = accounts.sort({email: 1})
+    // }
 
     if (order == "desc") {
         accounts = accounts.reverse();
     }
     
-    const initialPos = (pageNumber) * pageSize;
     const count = await db.Account.countDocuments();
-    const accountsPage = accounts.slice(initialPos, initialPos + pageSize).map(x => basicDetails(x));
+    const accountsPage = accounts.map(x => basicDetails(x));
+    // console.log(accountsPage)
           
     return { items: accountsPage, total_count: count }
 

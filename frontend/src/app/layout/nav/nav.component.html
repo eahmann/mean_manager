@@ -14,7 +14,7 @@
           (click)="clickHandler()" 
           class="nav-item nav-link"
           >
-          <mat-icon>dashboard</mat-icon> Dashboard
+          <mat-icon>home</mat-icon><span> Dashboard</span>
         </a>
         <a  
         mat-list-item 
@@ -24,18 +24,29 @@
         (click)="clickHandler()" 
         class="nav-item nav-link"
         >
-        <mat-icon>build</mat-icon> Manage Projects
+        <mat-icon>build</mat-icon><span> Projects</span>
       </a>
       <a  
       mat-list-item 
-      routerLink="/time" 
+      routerLink="/accounts" 
       routerLinkActive="active" 
       [routerLinkActiveOptions]="{exact: true}" 
       (click)="clickHandler()" 
       class="nav-item nav-link"
       >
-      <mat-icon>schedule</mat-icon> Time Cards
+      <mat-icon>work</mat-icon><span> Employees</span>
     </a>
+    <a  
+    mat-list-item 
+    routerLink="/accounts" 
+    routerLinkActive="active" 
+    [routerLinkActiveOptions]="{exact: true}" 
+    (click)="clickHandler()" 
+    class="nav-item nav-link"
+    >
+    <mat-icon>people</mat-icon><span> Customers</span>
+  </a>
+
           <a  
           mat-list-item 
           routerLink="/accounts" 
@@ -44,8 +55,18 @@
           (click)="clickHandler()" 
           class="nav-item nav-link"
           >
-          <mat-icon>account_box</mat-icon> Manage Accounts
+          <mat-icon>account_box</mat-icon><span> Accounts</span>
         </a>
+        <a  
+        mat-list-item 
+        routerLink="/time" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{exact: true}" 
+        (click)="clickHandler()" 
+        class="nav-item nav-link"
+        >
+        <mat-icon>schedule</mat-icon><span> Time Cards</span>
+      </a>
       </div>
     <mat-divider *ngIf="isHandset$ | async"></mat-divider>
     <a 

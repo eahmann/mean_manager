@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const textSearch = require('mongoose-partial-full-search');
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -33,8 +34,9 @@ schema.set('toJSON', {
     }
 });
 
-schema.plugin(textSearch);
+//schema.plugin(textSearch);
 
 schema.index({'$**': 'text'});
+schema.plugin(mongoose_fuzzy_searching , { fields: ['email', 'firstName', 'lastName']})
 
 module.exports = mongoose.model('Account', schema);
