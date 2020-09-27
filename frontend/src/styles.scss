@@ -31,6 +31,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .transparent-card {
     background: rgba(255, 255, 255, 0.75);
+    margin-top: 85px;
+    margin-bottom: 15px;
 }
 
 .mat-expansion-panel-body {
@@ -75,3 +77,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-column-actions {
     text-align: right!important;
   }
+
+  
+a:focus {
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.button:focus {
+    outline: none;
+}

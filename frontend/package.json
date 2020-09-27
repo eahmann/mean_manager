@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
+    "hmr": "ng serve --open --configuration hmr",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
