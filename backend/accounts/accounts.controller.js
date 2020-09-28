@@ -22,6 +22,9 @@ router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
+// Projects
+router.get('/projects/:id', authorize(), getProjectsByAccount)
+
 module.exports = router;
 
 function authenticateSchema(req, res, next) {
@@ -231,6 +234,17 @@ function _delete(req, res, next) {
 
     accountService.delete(req.params.id)
         .then(() => res.json({ message: 'Account deleted successfully' }))
+        .catch(next);
+}
+
+function getProjectsByAccount(req, res, next) {
+    // only customers can look up their own projects and Admins and Employees can look up any project
+    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    accountService.getProjectsByAccount(req.params.id)
+        .then(projects => res.json(projects))
         .catch(next);
 }
 
