@@ -20,7 +20,8 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    getProjectsByAccount
 };
 
 async function authenticate({ email, password, ipAddress }) {
@@ -238,12 +239,27 @@ async function _delete(id) {
     await account.remove();
 }
 
+async function getProjectsByAccount(id) {
+    const account = await getAccountProjects(id);
+    return { account: { id: account.id, name: account.firstName + " " + account.lastName }, projects: account.projects }
+
+    
+}
+
 // helper functions
 
 async function getAccount(id) {
     if (!db.isValidId(id)) throw 'Account not found';
     const account = await db.Account.findById(id);
     if (!account) throw 'Account not found';
+    return account;
+}
+
+async function getAccountProjects(id) {
+    if (!db.isValidId(id)) throw 'Account not found';
+    const account = await db.Account.findById(id).populate('projects');
+    if (!account) throw 'Account not found';
+    console.log(account)
     return account;
 }
 
