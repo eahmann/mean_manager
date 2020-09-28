@@ -1,12 +1,14 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
+  //  projectCode: { type: String, required: true  },
     title: { type: String, required: true },
     description: { type: String, required: false },
     active: Boolean,
-    customerId: { type: String, required: false},
-    locationId: { type: String, required: false},
+    customerId: { type: ObjectId, required: false},
+    locationId: { type: ObjectId, required: false},
     startDate: Date,
     endDate: Date,
     created: { type: Date, default: Date.now },

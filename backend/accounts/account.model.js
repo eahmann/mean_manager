@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const textSearch = require('mongoose-partial-full-search');
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
+const { ObjectId } = require('mongodb');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -7,6 +10,7 @@ const schema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     role: { type: String, required: true },
+    projects: [ { type: ObjectId, ref: "Project"} ],
     verificationToken: String,
     verified: Date,
     resetToken: {
@@ -31,5 +35,10 @@ schema.set('toJSON', {
         delete ret.passwordHash;
     }
 });
+
+//schema.plugin(textSearch);
+
+schema.index({'$**': 'text'});
+schema.plugin(mongoose_fuzzy_searching , { fields: ['email', 'firstName', 'lastName']})
 
 module.exports = mongoose.model('Account', schema);

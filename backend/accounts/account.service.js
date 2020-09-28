@@ -16,10 +16,12 @@ module.exports = {
     validateResetToken,
     resetPassword,
     getAll,
+    search,
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    getProjectsByAccount
 };
 
 async function authenticate({ email, password, ipAddress }) {
@@ -80,7 +82,8 @@ async function register(params, origin) {
     // validate
     if (await db.Account.findOne({ email: params.email })) {
         // send already registered error in email to prevent account enumeration
-        return await sendAlreadyRegisteredEmail(params.email, origin);
+        await sendAlreadyRegisteredEmail(params.email, origin);
+        throw new Error('Accout already exists with that email');
     }
 
     // create account object
@@ -153,8 +156,38 @@ async function resetPassword({ token, password }) {
 }
 
 async function getAll() {
-    const accounts = await db.Account.find();
+const accounts = await db.Account.find()
     return accounts.map(x => basicDetails(x));
+}
+
+async function search(query, res) {
+    const queryParams = query;
+
+    const filter = queryParams.filter || '',
+        sort = queryParams.sort,
+        order = queryParams.order,
+        page = parseInt(queryParams.page) || 0,
+        size = parseInt(queryParams.size);
+
+    accounts = await db.Account.fuzzySearch(filter).skip(page * size).limit(size)
+
+    // console.log(accounts)
+
+    // if (sort) { // SORT NOT WORKING
+    //     accounts = accounts.sort({email: 1})
+    // }
+
+    if (order == "desc") {
+        accounts = accounts.reverse();
+    }
+    
+    const count = await db.Account.countDocuments();
+    const accountsPage = accounts.map(x => basicDetails(x));
+    // console.log(accountsPage)
+          
+    return { items: accountsPage, total_count: count }
+
+
 }
 
 async function getById(id) {
@@ -206,12 +239,25 @@ async function _delete(id) {
     await account.remove();
 }
 
+async function getProjectsByAccount(id) {
+    const account = await getAccountProjects(id);
+    return { account: { id: account.id, name: account.firstName + " " + account.lastName }, projects: account.projects }
+}
+
 // helper functions
 
 async function getAccount(id) {
     if (!db.isValidId(id)) throw 'Account not found';
     const account = await db.Account.findById(id);
     if (!account) throw 'Account not found';
+    return account;
+}
+
+async function getAccountProjects(id) {
+    if (!db.isValidId(id)) throw 'Account not found';
+    const account = await db.Account.findById(id).populate('projects');
+    if (!account) throw 'Account not found';
+    console.log(account)
     return account;
 }
 

@@ -1,34 +1,4 @@
-<!-- <mat-toolbar class="mat-elevation-z2 inline-flex">
-  <img src="assets/images/hci_logo_horiz_jbfi0if.height-40.png">
-    <span class="spacer"></span>
-    <a 
-    mat-flat-button 
-    class="toolbar-link" 
-    routerLink="../account/login"
-  >
-  <mat-icon>lock_open</mat-icon><span class="larger"> Login</span>
-  </a>
-    <a 
-      mat-flat-button 
-      class="toolbar-link" 
-      routerLink="../account/register"
-    >
-      <mat-icon>person_add</mat-icon> <span class="larger"> Register</span>
-    </a>
-    <a 
-    mat-flat-button 
-    class="toolbar-link" 
-    routerLink="../account/forgot-password"
-  >
-    <mat-icon>help_outline</mat-icon> <span class="larger"> Forgot password</span>
-  </a>
-  </mat-toolbar>
-  <alert></alert>
-<div class="full-background" fxLayout="row" fxLayoutAlign="center center">
-  
- 
-<router-outlet></router-outlet>
-</div> -->
+
 <mat-toolbar fxLayout="row" class="mat-elevation-z2 inline-flex">
   <span fxFlex><img src="assets/images/hci_logo_horiz_jbfi0if.height-40.png"></span>
   <button mat-button *ngFor="let item of menuItems" fxHide.xs (click)="navigate(item.path)">
@@ -50,8 +20,6 @@
 </mat-toolbar>
 
 
-<div class="full-background" fxLayout="row" fxLayoutAlign="center center"> 
-  
- 
+<div class="full-background" fxLayout="row" fxLayoutAlign="center">
   <router-outlet></router-outlet>
-  </div>
+</div>

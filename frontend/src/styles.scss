@@ -1,8 +1,15 @@
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+
 // global styles
 a { cursor: pointer; }
 
 .app-container {
-    min-height: 320px;
+    min-height: 100%;
 }
 
 .admin-nav {
@@ -17,10 +24,70 @@ a { cursor: pointer; }
     text-align: center;
     box-sizing: content-box;
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 .transparent-card {
-        background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.75);
+    margin-top: 85px;
+    margin-bottom: 15px;
+}
+
+.mat-expansion-panel-body {
+    padding: 0!important;
+  }
+
+.mat-sidenav-content {
+    height: 100%!important;
+  }
+
+.inline-flex {
+    display: inline-flex!important;
+}
+
+.snackbar-success {
+    background-color: #0ea800c5;
+    color: whitesmoke;
+
+    .mat-button-wrapper{
+        color: whitesmoke;
+        font-weight: 700;
+    }
+}
+
+.snackbar-error {
+    background-color: #a80000c5;
+    color: whitesmoke;
+
+    .mat-button-wrapper{
+        color: whitesmoke;
+        font-weight: 700;
+    }
+}
+
+.loading-results-spinner {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background: white;
+}
+
+.mat-column-actions {
+    text-align: right!important;
+  }
+
+  
+a:focus {
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.button:focus {
+    outline: none;
 }

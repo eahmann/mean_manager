@@ -2,23 +2,23 @@
     flex: 1 1 auto;
   }
 
+// these classes were causing issues for the content on the page
 .full-background {
-    height: calc(100vh - 56px);
+    height: calc(100vh);
     background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-y: scroll;
 }
 
 @media (min-width: 600px) {
     .full-background {
-        height: calc(100vh - 64px);
+        height: calc(100vh);
     }
 }
 
-.inline-flex {
-    display: inline-flex!important;
-}
+
 
 .larger {
     font-size: larger;
@@ -37,4 +37,11 @@ a:focus {
 a:hover {
     text-decoration: none;
     color: black;
+}
+
+mat-toolbar {
+    height: 64px;
+    position: fixed;
+    z-index: 100;
+    width: 100%  !important;
 }

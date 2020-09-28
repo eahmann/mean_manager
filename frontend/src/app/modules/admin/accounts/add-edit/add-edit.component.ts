@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@core/services';
 import { MustMatch } from '@core/helpers';
+import { Role } from '@core/models';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -13,21 +14,22 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean;
     loading = false;
     submitted = false;
+    roles: typeof Role = Role;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
-    ) {}
+        private alertService: AlertService,
+    ) {
+    }
 
     ngOnInit(): void {
         this.id = this.route.snapshot.params.id;
         this.isAddMode = !this.id;
 
         this.form = this.formBuilder.group({
-            title: ['', Validators.required],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
@@ -67,6 +69,10 @@ export class AddEditComponent implements OnInit {
         }
     }
 
+    onCancel(): void {
+        this.router.navigateByUrl('/accounts');
+    }
+
     private createAccount(): void {
         this.accountService.create(this.form.value)
             .pipe(first())
@@ -88,7 +94,7 @@ export class AddEditComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.alertService.success('Update successful', { keepAfterRouteChange: true });
-                    this.router.navigate(['../../'], { relativeTo: this.route });
+                    this.router.navigate(['../'], { relativeTo: this.route });
                 },
                 error: error => {
                     this.alertService.error(error);

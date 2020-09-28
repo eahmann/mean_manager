@@ -16,10 +16,14 @@ router.post('/forgot-password', forgotPasswordSchema, forgotPassword);
 router.post('/validate-reset-token', validateResetTokenSchema, validateResetToken);
 router.post('/reset-password', resetPasswordSchema, resetPassword);
 router.get('/', authorize(Role.Admin), getAll);
+router.get('/search', authorize(Role.Admin), search);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
+
+// Projects
+router.get('/projects/:id', authorize(), getProjectsByAccount)
 
 module.exports = router;
 
@@ -91,6 +95,10 @@ function registerSchema(req, res, next) {
 function register(req, res, next) {
     accountService.register(req.body, req.get('origin'))
         .then(() => res.json({ message: 'Registration successful, please check your email for verification instructions' }))
+        .catch(err => res.status(418).send({
+            message:
+            err.message || "Some error occurred while registering."
+        }))
         .catch(next);
 }
 
@@ -150,6 +158,12 @@ function resetPassword(req, res, next) {
 
 function getAll(req, res, next) {
     accountService.getAll()
+        .then(accounts => res.json(accounts))
+        .catch(next);
+}
+
+function search(req, res, next) {
+    accountService.search(req.query, res)
         .then(accounts => res.json(accounts))
         .catch(next);
 }
@@ -220,6 +234,17 @@ function _delete(req, res, next) {
 
     accountService.delete(req.params.id)
         .then(() => res.json({ message: 'Account deleted successfully' }))
+        .catch(next);
+}
+
+function getProjectsByAccount(req, res, next) {
+    // only customers can look up their own projects and Admins and Employees can look up any project
+    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    accountService.getProjectsByAccount(req.params.id)
+        .then(projects => res.json(projects))
         .catch(next);
 }
 

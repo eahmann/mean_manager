@@ -15,6 +15,11 @@ import { HomeComponent } from './home';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './layout/nav/nav.component';
 import { LandingComponent } from './layout/landing/landing.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';;
+import { EnumToArrayPipe } from './core/pipes/enum-to-array.pipe'
+
 
 @NgModule({
     imports: [
@@ -24,16 +29,17 @@ import { LandingComponent } from './layout/landing/landing.component';
         AppRoutingModule,
         BrowserAnimationsModule,
         MaterialModule,
-        FlexLayoutModule
-    ],
+        FlexLayoutModule,
+        LayoutModule,
+      ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
         NavComponent,
         LandingComponent,
-        ContentComponent
-    ],
+        ContentComponent,
+        ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

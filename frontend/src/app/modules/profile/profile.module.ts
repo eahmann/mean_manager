@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { ProfileRoutingModule } from './profile-routing.module';
-import { LayoutComponent } from './layout';
 import { DetailsComponent } from './details';
 import { UpdateComponent } from './update';
 
@@ -14,7 +13,6 @@ import { UpdateComponent } from './update';
         ProfileRoutingModule
     ],
     declarations: [
-        LayoutComponent,
         DetailsComponent,
         UpdateComponent
     ]
