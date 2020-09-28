@@ -18,7 +18,7 @@ async function getAll() {
     return projects.map(x => basicProject(x));
 }
 
-function basicProject(account) {
+function basicProject(location) {
     const { id, title, description, active, customerId, locationId, startDate, endDate, created, updated } = project;
     return { id, title, description, active, customerId, locationId, startDate, endDate, created, updated };
 }
