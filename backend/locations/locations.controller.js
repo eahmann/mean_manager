@@ -36,7 +36,6 @@ function updateSchema(req, res, next) {
         city: Joi.string().email().empty(''),
         state: Joi.string().min(2).empty(''),
         zipCode: Joi.number().valid(),
-        notes: Joi.objectId().valid()
     };
 
     // only admins can update role

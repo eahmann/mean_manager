@@ -7,11 +7,6 @@ const schema = new Schema({
     city: { type: String, required: false},
     state: { type: String, required: false},
     zipCode: Number,
-    notes: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-        }
-    ]
 });
 
 schema.set('toJSON', {
