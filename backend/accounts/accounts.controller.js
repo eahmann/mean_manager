@@ -238,12 +238,11 @@ function _delete(req, res, next) {
 }
 
 function getProjectsByAccount(req, res, next) {
-    // only customers can look up their own projects and Admins and Employees can look up any
+    // only customers can look up their own projects and Admins and Employees can look up any project
     if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    console.log(req.params)
     accountService.getProjectsByAccount(req.params.id)
         .then(projects => res.json(projects))
         .catch(next);

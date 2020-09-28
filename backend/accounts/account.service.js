@@ -242,8 +242,6 @@ async function _delete(id) {
 async function getProjectsByAccount(id) {
     const account = await getAccountProjects(id);
     return { account: { id: account.id, name: account.firstName + " " + account.lastName }, projects: account.projects }
-
-    
 }
 
 // helper functions
