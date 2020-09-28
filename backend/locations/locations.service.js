@@ -19,6 +19,6 @@ async function getAll() {
 }
 
 function basicProject(location) {
-    const { id, title, description, active, customerId, locationId, startDate, endDate, created, updated } = project;
-    return { id, title, description, active, customerId, locationId, startDate, endDate, created, updated };
+    const { addressLine1, addressLine2, city, state, zipCode, notes } = project;
+    return { addressLine1, addressLine2, city, state, zipCode, notes };
 }
