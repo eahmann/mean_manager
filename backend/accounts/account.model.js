@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const textSearch = require('mongoose-partial-full-search');
 const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
+const { ObjectId } = require('mongodb');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -9,6 +10,7 @@ const schema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     role: { type: String, required: true },
+    projects: [ { type: ObjectId, ref: "Project"} ],
     verificationToken: String,
     verified: Date,
     resetToken: {
