@@ -6,19 +6,57 @@ const sendEmail = require('_helpers/send-email');
 const db = require('_helpers/db');
 const Role = require('_helpers/role');
 
-
 module.exports = {
     getAll,
+    getById,
+    create,
+    update,
+    delete: _delete
 };
-
-
-
+//Calling db.project and returning the details in basic format
 async function getAll() {
-    const projects = await db.Project.find();
-    return projects.map(x => basicProject(x));
+const location = await db.Project.find();
+    return location.map(x => basicDetails(x));
+}
+//Calling db.project and returning the details in basic format by id
+async function getById(id) {
+    const location = await getLocation(id);
+    return basicLocation(location);
 }
 
-function basicProject(location) {
-    const { addressLine1, addressLine2, city, state, zipCode, notes } = project;
-    return { addressLine1, addressLine2, city, state, zipCode, notes };
+async function create(params) {
+    const location = new db.Location(params);
+    location.created = Date.now();
+    // save project
+    await location.save();
+
+    return basicLocation(location);
+}
+
+async function update(id, params) {
+    const location = await getLocation(id);
+
+    // copy params to project and save
+    Object.assign(location, params);
+    location.updated = Date.now();
+    await location.save();
+
+    return basicLocation(location);
+}
+
+async function _delete(id) {
+    const location = await getLocation(id);
+    await location.remove();
+}
+
+function basicLocation(location) {
+    const { addressLine1, addressLine2, city, state, zipCode } = location;
+    return { addressLine1, addressLine2, city, state, zipCode};
+}
+
+async function getLocation(id) {
+    if (!db.isValidId(id)) throw 'Location not found';
+    const location = await db.Location.findById(id);
+    if (!location) throw 'Location not found';
+    return location;
 }

@@ -4,7 +4,9 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
-const locationService = require('./location.service');
+const locationService = require('./locations.service');
+
+module.exports = router;
 
 // routes
 router.get('/', authorize(Role.Admin), getAll);
@@ -14,7 +16,7 @@ router.put('/:id', authorize(), updateSchema, update);
 
 function getAll(req, res, next) {
     locationService.getAll()
-        .then(accounts => res.json(accounts))
+        .then(locations => res.json(locations))
         .catch(next);
 }
 
@@ -26,6 +28,23 @@ function getById(req, res, next) {
 
     locationService.getById(req.params.id)
         .then(location => location ? res.json(location) : res.sendStatus(404))
+        .catch(next);
+}
+
+function createSchema(req, res, next) {
+    const schema = Joi.object({
+        addressLine1: Joi.string().required(),
+        addressLine2: Joi.string().required(),
+        city: Joi.string().email().required(),
+        state: Joi.string().min(6).required(),
+        zipCode: Joi.number().required()
+    });
+    validateRequest(req, next, schema);
+}
+
+function create(req, res, next) {
+    projectService.create(req.body)
+        .then(location => res.json(location))
         .catch(next);
 }
 
@@ -47,14 +66,13 @@ function updateSchema(req, res, next) {
     validateRequest(req, next, schema);
 }
 
-function createSchema(req, res, next) {
-    const schema = Joi.object({
-        addressLine1: Joi.string().required(),
-        addressLine2: Joi.string().required(),
-        city: Joi.string().email().required(),
-        state: Joi.string().min(6).required(),
-        zipCode: Joi.number().required(),
-        notes: Joi.objectId().valid()
-    });
-    validateRequest(req, next, schema);
+function update(req, res, next) {
+    // users can update their own project and admins can update any project
+    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    projectService.update(req.params.id, req.body)
+        .then(location => res.json(location))
+        .catch(next);
 }
