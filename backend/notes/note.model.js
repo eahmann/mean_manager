@@ -5,10 +5,11 @@ const { ObjectId } = require('mongodb');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    visibility: { type: Role, required: true},   //Creating classes for Notes
+    visibility: { type: String, required: true},   //Creating classes for Notes
     title: { type: String, required: true },
     description: { type: String, required: true },
-    lastName: { type: String, required: true },
+    created: { type: Date, default: Date.now },
+    updated: Date 
 });
 
 schema.set('toJSON', {
