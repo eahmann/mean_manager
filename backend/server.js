@@ -19,7 +19,6 @@ app.use('/projects', require('./projects/projects.controller'));
 app.use('/locations', require('./locations/locations.controller'));
 
 
-
 // swagger docs route
 app.use('/api-docs', require('_helpers/swagger'));
 

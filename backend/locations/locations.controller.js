@@ -4,7 +4,7 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
-const locationService = require('./account.location');
+const locationService = require('./location.service');
 
 // routes
 router.get('/', authorize(Role.Admin), getAll);
