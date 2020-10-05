@@ -17,4 +17,5 @@ schema.set('toJSON', {
         delete ret._id;
     }
 });
-module.exports = mongoose.model('Location', schema);
+
+module.exports = mongoose.model('locations', schema);

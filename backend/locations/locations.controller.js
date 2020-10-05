@@ -35,15 +35,15 @@ function createSchema(req, res, next) {
     const schema = Joi.object({
         addressLine1: Joi.string().required(),
         addressLine2: Joi.string().required(),
-        city: Joi.string().email().required(),
-        state: Joi.string().min(6).required(),
+        city: Joi.string().required(),
+        state: Joi.string().min(2).required(),
         zipCode: Joi.number().required()
     });
     validateRequest(req, next, schema);
 }
 
 function create(req, res, next) {
-    projectService.create(req.body)
+    locationService.create(req.body)
         .then(location => res.json(location))
         .catch(next);
 }
@@ -72,7 +72,7 @@ function update(req, res, next) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    projectService.update(req.params.id, req.body)
+    locationService.update(req.params.id, req.body)
         .then(location => res.json(location))
         .catch(next);
 }

@@ -15,9 +15,10 @@ module.exports = {
 };
 //Calling db.project and returning the details in basic format
 async function getAll() {
-const location = await db.Project.find();
+const location = await db.Locations.find();
     return location.map(x => basicDetails(x));
 }
+
 //Calling db.project and returning the details in basic format by id
 async function getById(id) {
     const location = await getLocation(id);
