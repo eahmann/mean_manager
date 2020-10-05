@@ -15,7 +15,7 @@ module.exports = {
 };
 //Calling db.project and returning the details in basic format
 async function getAll() {
-const location = await db.Locations.find();
+const location = await db.Location.find();
     return location.map(x => basicLocation(x));
 }
 

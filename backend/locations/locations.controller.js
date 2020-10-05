@@ -13,6 +13,7 @@ router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
+
 module.exports = router;
 
 function getAll(req, res, next) {
@@ -37,7 +38,7 @@ function createSchema(req, res, next) {
         addressLine1: Joi.string().required(),
         addressLine2: Joi.string().required(),
         city: Joi.string().required(),
-        state: Joi.string().min(2).required(),
+        state: Joi.string().required(),
         zipCode: Joi.number().required()
     });
     validateRequest(req, next, schema);
@@ -54,8 +55,8 @@ function updateSchema(req, res, next) {
         addressLine1: Joi.string().empty(''),
         addressLine2: Joi.string().empty(''),
         city: Joi.string().email().empty(''),
-        state: Joi.string().min(2).empty(''),
-        zipCode: Joi.number().valid(),
+        state: Joi.string().empty(''),
+        zipCode: Joi.number().valid()
     };
 
     // only admins can update role
@@ -75,5 +76,16 @@ function update(req, res, next) {
 
     locationService.update(req.params.id, req.body)
         .then(location => res.json(location))
+        .catch(next);
+}
+
+function _delete(req, res, next) {
+    // users can delete their own account and admins can delete any account
+    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    locationService.delete(req.params.id)
+        .then(() => res.json({ message: 'Location deleted successfully' }))
         .catch(next);
 }
