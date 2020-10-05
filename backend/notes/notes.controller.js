@@ -37,10 +37,6 @@ function createSchema(req, res, next) {
         title: Joi.string().required(),
         description: Joi.string().required(),
         visibility: Joi.string().required(),
-        customerId: Joi.string().required(),
-        locationId: Joi.string().required(),
-        created: Joi.date().required(),
-        updated: Joi.date().required()
     });
     validateRequest(req, next, schema);
 }
@@ -56,8 +52,6 @@ function updateSchema(req, res, next) {
         title: Joi.string().empty(''),
         description: Joi.string().empty(''),
         visibility: Joi.string().empty(''),
-        created: Joi.date().empty(''),
-        updated: Joi.date().empty('')
     };
 
     const schema = Joi.object(schemaRules)
