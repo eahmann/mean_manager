@@ -6,13 +6,14 @@ const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
 const locationService = require('./locations.service');
 
-module.exports = router;
-
 // routes
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
+router.delete('/:id', authorize(), _delete);
+
+module.exports = router;
 
 function getAll(req, res, next) {
     locationService.getAll()
