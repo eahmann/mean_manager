@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    addressLine1: { type: String, required: false },
-    addressLine2: { type: String, required: false },
-    city: { type: String, required: false},
-    state: { type: String, required: false},
-    zipCode: Number,
+    addressLine1: { type: String, required: true },
+    addressLine2: { type: String, required: true },
+    city: { type: String, required: true},
+    state: { type: String, required: true},
+    zipCode: { type: Number, required: true}
 });
 
 schema.set('toJSON', {

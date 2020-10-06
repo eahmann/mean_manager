@@ -54,9 +54,9 @@ function updateSchema(req, res, next) {
     const schemaRules = {
         addressLine1: Joi.string().empty(''),
         addressLine2: Joi.string().empty(''),
-        city: Joi.string().email().empty(''),
+        city: Joi.string().empty(''),
         state: Joi.string().empty(''),
-        zipCode: Joi.number().valid()
+        zipCode: Joi.number()
     };
 
     // only admins can update role
