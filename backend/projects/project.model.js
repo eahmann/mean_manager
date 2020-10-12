@@ -3,12 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  //  projectCode: { type: String, required: true  },
     title: { type: String, required: true },
     description: { type: String, required: false },
     active: Boolean,
-    customerId: { type: ObjectId, required: false},
-    locationId: { type: ObjectId, required: false},
+    customer: { type: ObjectId, ref: "Account", required: false},
+    location: { type: ObjectId, ref: "Location", required: false},
     startDate: Date,
     endDate: Date,
     created: { type: Date, default: Date.now },
