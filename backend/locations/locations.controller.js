@@ -10,7 +10,7 @@ const locationService = require('./locations.service');
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
-router.put('/:id', authorize(), updateSchema, update);
+router.put('/:id', authorize(Role.Admin), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
 
@@ -83,12 +83,4 @@ function _delete(req, res, next) {
         .catch(next);
     }
 
-
-    async function getLocation(id) {
-
-        if (!db.isValidId(id)) throw 'Location not found';
-        const location = await db.Location.findById(id);
-        if (!location) throw 'Location not found';
-        return location;
-        }
 }
