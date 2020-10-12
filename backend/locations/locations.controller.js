@@ -23,8 +23,8 @@ function getAll(req, res, next) {
 }
 
 function getById(req, res, next) {
-    // users can get their own account and admins can get any account
-    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+    // 
+    if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
@@ -32,6 +32,7 @@ function getById(req, res, next) {
         .then(location => location ? res.json(location) : res.sendStatus(404))
         .catch(next);
 }
+
 
 function createSchema(req, res, next) {
     const schema = Joi.object({
@@ -56,21 +57,13 @@ function updateSchema(req, res, next) {
         addressLine2: Joi.string().empty(''),
         city: Joi.string().empty(''),
         state: Joi.string().empty(''),
-        zipCode: Joi.number()
+        zipCode: Joi.number().empty('')
     };
 
-    // only admins can update role
-    if (req.user.role === Role.Admin) {
-        schemaRules.role = Joi.string().valid(Role.Admin, Role.User).empty('');
-    }
-
-    const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
-    validateRequest(req, next, schema);
-}
 
 function update(req, res, next) {
-    // users can update their own project and admins can update any project
-    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+    
+    if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
@@ -81,11 +74,21 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
     // users can delete their own account and admins can delete any account
-    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+    if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
     locationService.delete(req.params.id)
         .then(() => res.json({ message: 'Location deleted successfully' }))
         .catch(next);
+    }
+
+
+    async function getLocation(id) {
+
+        if (!db.isValidId(id)) throw 'Location not found';
+        const location = await db.Location.findById(id);
+        if (!location) throw 'Location not found';
+        return location;
+        }
 }
