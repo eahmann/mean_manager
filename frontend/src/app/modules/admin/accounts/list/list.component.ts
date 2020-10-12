@@ -8,9 +8,6 @@ import { AccountService } from '@core/services';
 import { fromEvent, merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, first, map, startWith, switchMap, tap } from 'rxjs/operators';
 
-
-
-
 @Component({ templateUrl: 'list.component.html',
 styleUrls: ['./list.component.scss'] })
 export class ListComponent implements OnInit {
