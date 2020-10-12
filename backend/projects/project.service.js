@@ -13,7 +13,7 @@ module.exports = {
 
 async function getAll() {
     const projects = await db.Project.find();
-    return projects.map(x => basicDetails(x));
+    return projects.map(x => basicProject(x));
 }
 
 async function getById(id) {

@@ -13,13 +13,12 @@ module.exports = {
     update,
     delete: _delete
 };
-//Calling db.project and returning the details in basic format
+
 async function getAll() {
 const location = await db.Location.find();
     return location.map(x => basicLocation(x));
 }
 
-//Calling db.project and returning the details in basic format by id
 async function getById(id) {
     const location = await getLocation(id);
     return basicLocation(location);
@@ -37,7 +36,6 @@ async function create(params) {
 async function update(id, params) {
     const location = await getLocation(id);
 
-    // copy params to project and save
     Object.assign(location, params);
     location.updated = Date.now();
     await location.save();
