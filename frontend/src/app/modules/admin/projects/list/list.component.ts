@@ -29,7 +29,6 @@ export class ListComponent implements OnInit {
     console.log(this.dataSource);
 }
 
-
   ngOnInit(): void {
     this.projectService.getAll()
         .pipe(first())

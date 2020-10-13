@@ -16,8 +16,10 @@ async function getAll() {
     return projects.map(x => basicProject(x));
 }
 
-async function getById(id) {
-    const project = await getProject(id);
+async function getById(req) {
+    const project = await getProject(req.params.id);
+    if (project.customer !== req.user.id && req.user.role !== Role.Admin) throw new Error('Unauthorized');
+
     return basicProject(project);
 }
 
@@ -50,8 +52,8 @@ async function _delete(id) {
 
 // helper functions
 function basicProject(project) {
-    const { id, title, description, active, customerId, locationId, startDate, endDate, created, updated } = project;
-    return { id, title, description, active, customerId, locationId, startDate, endDate, created, updated };
+    const { id, title, description, active, customer, location, startDate, endDate, created, updated } = project;
+    return { id, title, description, active, customer, location, startDate, endDate, created, updated };
 }
 
 async function getProject(id) {
