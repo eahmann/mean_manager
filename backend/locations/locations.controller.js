@@ -4,15 +4,14 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
-const locationService = require('./locations.service');
+const locationService = require('./location.service');
 
 // routes
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
-router.put('/:id', authorize(Role.Admin), updateSchema, update);
-router.delete('/:id', authorize(), _delete);
-
+router.put('/:id', authorize(Role.Admin), updateSchema);
+router.delete('/:id', authorize());
 
 module.exports = router;
 
@@ -62,7 +61,7 @@ function updateSchema(req, res, next) {
 
 
 function update(req, res, next) {
-    
+    // admins can update any project
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -73,7 +72,7 @@ function update(req, res, next) {
 }
 
 function _delete(req, res, next) {
-    // users can delete their own account and admins can delete any account
+    //admins can delete any account
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }

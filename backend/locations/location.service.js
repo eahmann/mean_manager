@@ -10,7 +10,7 @@ module.exports = {
     getAll,
     getById,
     create,
-    update,
+    update: update,
     delete: _delete
 };
 
