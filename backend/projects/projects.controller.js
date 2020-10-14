@@ -27,7 +27,7 @@ function getById(req, res, next) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    projectService.getById(req.params.id)
+    projectService.getById(req)
         .then(project => project ? res.json(project) : res.sendStatus(404))
         .catch(next);
 }
@@ -37,8 +37,8 @@ function createSchema(req, res, next) {
         title: Joi.string().required(),
         description: Joi.string().required(),
         active: Joi.boolean().required(),
-        customerId: Joi.string().required(),
-        locationId: Joi.string().required(),
+        customer: Joi.string().required(),
+        location: Joi.string().required(),
         startDate: Joi.date(),
         endDate: Joi.date(),
     });
@@ -56,8 +56,8 @@ function updateSchema(req, res, next) {
         title: Joi.string().empty(''),
         description: Joi.string().empty(''),
         active: Joi.boolean().empty(''),
-        customerId: Joi.string().empty(''),
-        locationId: Joi.string().empty(''),
+        customer: Joi.string().empty(''),
+        location: Joi.string().empty(''),
         startDate: Joi.date().empty(''),
         endDate: Joi.date().empty('')
     };
@@ -67,8 +67,8 @@ function updateSchema(req, res, next) {
 }
 
 function update(req, res, next) {
-    // users can update their own project and admins can update any project
-    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+    // only admins can update a project
+    if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
@@ -78,8 +78,8 @@ function update(req, res, next) {
 }
 
 function _delete(req, res, next) {
-    // users can delete their own account and admins can delete any account
-    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+    // only admins can delete a project
+    if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 

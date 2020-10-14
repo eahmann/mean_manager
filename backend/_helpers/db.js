@@ -9,7 +9,8 @@ module.exports = {
     RefreshToken: require('accounts/refresh-token.model'),
     isValidId,
     Project: require('projects/project.model'),
-    Location: require('locations/location.model')
+    Location: require('locations/location.model'),
+    WorkSegment: require('work_segments/work_segment.model')
 };
 
 function isValidId(id) {
