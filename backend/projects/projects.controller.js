@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const Joi = require('joi');
-const validateRequest = require('_middleware/validate-request');
-const authorize = require('_middleware/authorize')
-const Role = require('_helpers/role');
-const projectService = require('./project.service');
+const express = require('express');
+const router = express.Router();
+const Joi = require('joi');
+const validateRequest = require('_middleware/validate-request');
+const authorize = require('_middleware/authorize')
+const Role = require('_helpers/role');
+const projectService = require('./project.service');
 
 // routes
 router.get('/', authorize(Role.Admin), getAll);
