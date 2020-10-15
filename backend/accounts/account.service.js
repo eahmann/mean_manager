@@ -16,6 +16,7 @@ module.exports = {
     validateResetToken,
     resetPassword,
     getAll,
+    getAllByRole,
     search,
     getById,
     create,
@@ -155,6 +156,19 @@ async function resetPassword({ token, password }) {
 
 async function getAll() {
 const accounts = await db.Account.find()
+    return accounts.map(x => basicDetails(x));
+}
+
+async function getAllByRole(req) {
+    if (Object.values(Role).includes(req.params.role)) {
+        accounts = await db.Account.find({ 'role': req.params.role })
+    }
+    else if (req.params.role == 'all') {
+        accounts = await db.Account.find()
+    }
+    else {
+        throw 'Invalid role'
+    }
     return accounts.map(x => basicDetails(x));
 }
 
