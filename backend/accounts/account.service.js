@@ -30,14 +30,13 @@ async function authenticate({ email, password, ipAddress }) {
     if (!account || !account.isVerified || !bcrypt.compareSync(password, account.passwordHash)) {
         throw 'Email or password is incorrect';
     }
-
+    
     // authentication successful so generate jwt and refresh tokens
     const jwtToken = generateJwtToken(account);
     const refreshToken = generateRefreshToken(account, ipAddress);
 
     // save refresh token
     await refreshToken.save();
-
     // return basic details and tokens
     return {
         ...basicDetails(account),
@@ -60,7 +59,6 @@ async function refreshToken({ token, ipAddress }) {
 
     // generate new jwt
     const jwtToken = generateJwtToken(account);
-
     // return basic details and tokens
     return {
         ...basicDetails(account),

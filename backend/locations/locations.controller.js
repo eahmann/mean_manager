@@ -4,86 +4,84 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
-const projectService = require('./project.service');
+const locationService = require('./location.service');
 
 // routes
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
-router.put('/:id', authorize(), updateSchema, update);
+router.put('/:id', authorize(Role.Admin), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
 module.exports = router;
 
 function getAll(req, res, next) {
-    projectService.getAll()
-        .then(projects => res.json(projects))
+    locationService.getAll()
+        .then(locations => res.json(locations))
         .catch(next);
 }
 
 function getById(req, res, next) {
-    // users can get their own project and admins can get any project
-    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+    if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    projectService.getById(req)
-        .then(project => project ? res.json(project) : res.sendStatus(404))
+    locationService.getById(req.params.id)
+        .then(location => location ? res.json(location) : res.sendStatus(404))
         .catch(next);
 }
 
+
 function createSchema(req, res, next) {
     const schema = Joi.object({
-        title: Joi.string().required(),
-        description: Joi.string().required(),
-        active: Joi.boolean().required(),
-        customer: Joi.string().required(),
-        location: Joi.string().required(),
-        startDate: Joi.date(),
-        endDate: Joi.date(),
+        addressLine1: Joi.string().required(),
+        addressLine2: Joi.string(),
+        city: Joi.string().required(),
+        state: Joi.string().required(),
+        zipCode: Joi.number().required()
     });
     validateRequest(req, next, schema);
 }
 
 function create(req, res, next) {
-    projectService.create(req.body)
-        .then(project => res.json(project))
+    locationService.create(req.body)
+        .then(location => res.json(location))
         .catch(next);
 }
 
 function updateSchema(req, res, next) {
     const schemaRules = {
-        title: Joi.string().empty(''),
-        description: Joi.string().empty(''),
-        active: Joi.boolean().empty(''),
-        customer: Joi.string().empty(''),
-        location: Joi.string().empty(''),
-        startDate: Joi.date().empty(''),
-        endDate: Joi.date().empty('')
+        addressLine1: Joi.string().empty(''),
+        addressLine2: Joi.string().empty(''),
+        city: Joi.string().empty(''),
+        state: Joi.string().empty(''),
+        zipCode: Joi.number().empty('')
     };
 
     const schema = Joi.object(schemaRules)
     validateRequest(req, next, schema);
 }
 
+
 function update(req, res, next) {
-    // only admins can update a project
+    // admins can update any project
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    projectService.update(req.params.id, req.body)
-        .then(project => res.json(project))
+    locationService.update(req.params.id, req.body)
+        .then(location => res.json(location))
         .catch(next);
 }
 
 function _delete(req, res, next) {
-    // only admins can delete a project
+    //admins can delete any account
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    projectService.delete(req.params.id)
-        .then(() => res.json({ message: 'Project deleted successfully' }))
+    locationService.delete(req.params.id)
+        .then(() => res.json({ message: 'Location deleted successfully' }))
         .catch(next);
 }
+
