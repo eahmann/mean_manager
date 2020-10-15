@@ -15,7 +15,7 @@ module.exports = {
 };
 
 async function getAll() {
-const location = await db.Location.find();
+    const location = await db.Location.find();
     return location.map(x => basicLocation(x));
 }
 
@@ -27,7 +27,7 @@ async function getById(id) {
 async function create(params) {
     const location = new db.Location(params);
     location.created = Date.now();
-    // save project
+
     await location.save();
 
     return basicLocation(location);
@@ -49,8 +49,8 @@ async function _delete(id) {
 }
 
 function basicLocation(location) {
-    const { addressLine1, addressLine2, city, state, zipCode } = location;
-    return { addressLine1, addressLine2, city, state, zipCode};
+    const {id, addressLine1, addressLine2, city, state, zipCode } = location;
+    return {id, addressLine1, addressLine2, city, state, zipCode };
 }
 
 async function getLocation(id) {

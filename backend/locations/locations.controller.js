@@ -10,8 +10,8 @@ const locationService = require('./location.service');
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
-router.put('/:id', authorize(Role.Admin), updateSchema);
-router.delete('/:id', authorize());
+router.put('/:id', authorize(Role.Admin), updateSchema, update);
+router.delete('/:id', authorize(), _delete);
 
 module.exports = router;
 
@@ -22,7 +22,6 @@ function getAll(req, res, next) {
 }
 
 function getById(req, res, next) {
-    // 
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -36,7 +35,7 @@ function getById(req, res, next) {
 function createSchema(req, res, next) {
     const schema = Joi.object({
         addressLine1: Joi.string().required(),
-        addressLine2: Joi.string().required(),
+        addressLine2: Joi.string(),
         city: Joi.string().required(),
         state: Joi.string().required(),
         zipCode: Joi.number().required()
@@ -59,6 +58,10 @@ function updateSchema(req, res, next) {
         zipCode: Joi.number().empty('')
     };
 
+    const schema = Joi.object(schemaRules)
+    validateRequest(req, next, schema);
+}
+
 
 function update(req, res, next) {
     // admins can update any project
@@ -80,6 +83,5 @@ function _delete(req, res, next) {
     locationService.delete(req.params.id)
         .then(() => res.json({ message: 'Location deleted successfully' }))
         .catch(next);
-    }
-
 }
+
