@@ -77,6 +77,10 @@ export class AccountService {
         return this.http.get<Account[]>(baseUrl);
     }
 
+    getAllByRole(role?: string): Observable<Account[]> {
+        return this.http.get<Account[]>(`${baseUrl}/role/${role}`);
+    }
+
     search(filter = '', sort = '', order = 'asc', pageNumber = 1, pageSize = 3): Observable<AccountSearchResult> {
         const payload = 'payload';
         return this.http.get<AccountSearchResult>(`${baseUrl}/search`, {
