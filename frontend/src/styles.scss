@@ -91,3 +91,27 @@ a:hover {
 .button:focus {
     outline: none;
 }
+
+.dashboard-card {
+    width: calc(100% - 20px);
+    min-height: 300px;
+    overflow: hidden;
+}
+
+@media only screen and (min-width: 768px) {
+    .dashboard-card {
+        width: calc(50% - 20px)
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .dashboard-card {
+        width: calc(33% - 20px)
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .dashboard-card {
+        width: calc(25% - 20px)
+    }
+}

@@ -16,6 +16,7 @@ module.exports = {
     validateResetToken,
     resetPassword,
     getAll,
+    getAllByRole,
     search,
     getById,
     create,
@@ -30,14 +31,13 @@ async function authenticate({ email, password, ipAddress }) {
     if (!account || !account.isVerified || !bcrypt.compareSync(password, account.passwordHash)) {
         throw 'Email or password is incorrect';
     }
-
+    
     // authentication successful so generate jwt and refresh tokens
     const jwtToken = generateJwtToken(account);
     const refreshToken = generateRefreshToken(account, ipAddress);
 
     // save refresh token
     await refreshToken.save();
-
     // return basic details and tokens
     return {
         ...basicDetails(account),
@@ -60,7 +60,6 @@ async function refreshToken({ token, ipAddress }) {
 
     // generate new jwt
     const jwtToken = generateJwtToken(account);
-
     // return basic details and tokens
     return {
         ...basicDetails(account),
@@ -157,6 +156,19 @@ async function resetPassword({ token, password }) {
 
 async function getAll() {
 const accounts = await db.Account.find()
+    return accounts.map(x => basicDetails(x));
+}
+
+async function getAllByRole(req) {
+    if (Object.values(Role).includes(req.params.role)) {
+        accounts = await db.Account.find({ 'role': req.params.role })
+    }
+    else if (req.params.role == 'all') {
+        accounts = await db.Account.find()
+    }
+    else {
+        throw 'Invalid role'
+    }
     return accounts.map(x => basicDetails(x));
 }
 

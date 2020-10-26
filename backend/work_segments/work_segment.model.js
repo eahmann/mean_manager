@@ -3,13 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: false },
-    active: Boolean,
-    customer: { type: ObjectId, ref: "Account", required: false},
-    location: { type: ObjectId, ref: "Location", required: false},
-    startDate: Date,
-    endDate: Date,
+    date: { type: Date, required: false },
+    description: { type: String, required: true },
+    hours: { type: Number, required: true },
+    employee: { type: ObjectId, ref:"Account", required: true},
+    project: { type: ObjectId, ref:"Project", required: true},
     created: { type: Date, default: Date.now },
     updated: Date
 });
@@ -24,4 +22,4 @@ schema.set('toJSON', {
     }
 });
 
-module.exports = mongoose.model('Project', schema);
+module.exports = mongoose.model('WorkSegment', schema);

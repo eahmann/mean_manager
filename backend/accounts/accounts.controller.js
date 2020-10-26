@@ -16,6 +16,7 @@ router.post('/forgot-password', forgotPasswordSchema, forgotPassword);
 router.post('/validate-reset-token', validateResetTokenSchema, validateResetToken);
 router.post('/reset-password', resetPasswordSchema, resetPassword);
 router.get('/', authorize(Role.Admin), getAll);
+router.get('/role/:role', authorize(Role.Admin), getAllByRole);
 router.get('/search', authorize(Role.Admin), search);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
@@ -95,7 +96,7 @@ function registerSchema(req, res, next) {
 function register(req, res, next) {
     accountService.register(req.body, req.get('origin'))
         .then(() => res.json({ message: 'Registration successful, please check your email for verification instructions' }))
-        .catch(err => res.status(418).send({
+        .catch(err => res.status(500).send({
             message:
             err.message || "Some error occurred while registering."
         }))
@@ -158,6 +159,12 @@ function resetPassword(req, res, next) {
 
 function getAll(req, res, next) {
     accountService.getAll()
+        .then(accounts => res.json(accounts))
+        .catch(next);
+}
+
+function getAllByRole(req, res, next) {
+    accountService.getAllByRole(req)
         .then(accounts => res.json(accounts))
         .catch(next);
 }

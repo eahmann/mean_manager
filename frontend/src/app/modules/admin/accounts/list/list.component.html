@@ -1,13 +1,36 @@
-﻿<h1>Accounts</h1>
+﻿<h1>{{ selected | titlecase }} Accounts</h1> 
 
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input #input matInput (keyup)="applyFilter($event)">
-</mat-form-field>
+
+<div class="row">
+  <div class="col-lg-6 col-xs-12">
+    <mat-form-field appearance="fill">
+      <mat-label>Account type</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option value="all">
+          All Accounts
+        </mat-option>
+        <mat-option value="User">
+          Customer accounts
+        </mat-option>
+        <mat-option value="Admin">
+          Employee accounts
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-6 col-xs-12">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input #input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+  </div>
+</div>
+
+
 
 <div class="mat-elevation-z3">
 
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table *ngIf="!isLoadingResults" mat-table [dataSource]="dataSource" matSort>
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -37,7 +60,7 @@
       <th mat-header-cell *matHeaderCellDef><a mat-raised-button routerLink="add/" class="mr-1">Create Account</a>
       </th>
       <td mat-cell *matCellDef="let row">
-        <a mat-raised-button routerLink="edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
+        <a mat-raised-button routerLink="../../edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
         <button mat-raised-button (click)="deleteAccount(row.id)" color="warn" [disabled]="row.isDeleting">
           <span *ngIf="row.isDeleting" class="spinner-border spinner-border-sm"></span>
           <span *ngIf="!row.isDeleting">Delete</span>

@@ -1,7 +1,7 @@
 {
-    "name": "node-mongo-signup-verification-api",
+    "name": "mean-manager-api",
     "version": "1.0.0",
-    "description": "NodeJS + MongoDB API for Email Sign Up with Verification, Authentication & Forgot Password",
+    "description": "REST API for MEAN Manager",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -19,6 +19,7 @@
         "express": "^4.17.1",
         "express-jwt": "^6.0.0",
         "joi": "^17.1.1",
+        "joi-objectid": "^3.0.1",
         "jsonwebtoken": "^8.5.1",
         "mongodb": "^3.5.7",
         "mongoose": "^5.9.25",
@@ -30,6 +31,6 @@
         "yamljs": "^0.3.0"
     },
     "devDependencies": {
-        "nodemon": "^2.0.3"
+        "nodemon": "^2.0.4"
     }
 }
