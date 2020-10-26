@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const textSearch = require('mongoose-partial-full-search');
-const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 const { ObjectId } = require('mongodb');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    visibility: { type: Role, required: true},   //Creating classes for Notes
+    visibility: { type: Role, required: true},
+    account: { type: ObjectId, ref: "Account", required: true},
     title: { type: String, required: true },
     description: { type: String, required: true },
     lastName: { type: String, required: true },
@@ -19,8 +18,6 @@ schema.set('toJSON', {
         delete ret._id;
     }
 });
-
-//schema.plugin(textSearch);
 
 schema.index({'$**': 'text'});
 
