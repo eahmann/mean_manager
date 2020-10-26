@@ -24,16 +24,16 @@
         (click)="clickHandler()" 
         class="nav-item nav-link"
         >
-        <mat-icon>build</mat-icon><span>&nbsp;Projects</span>
+        <mat-icon>build</mat-icon><span>&nbsp;Locations</span>
       </a>
-      <a  
-      mat-list-item 
-      routerLink="/accounts/list/Admin" 
-      routerLinkActive="active" 
-      [routerLinkActiveOptions]="{exact: true}" 
-      (click)="clickHandler()" 
-      class="nav-item nav-link"
-      >
+        <a  
+        mat-list-item 
+        routerLink="/locations" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{exact: true}" 
+        (click)="clickHandler()" 
+        class="nav-item nav-link"
+        >
       <mat-icon>work</mat-icon><span>&nbsp;Employees</span>
     </a>
     <a  
