@@ -27,6 +27,16 @@
         <mat-icon>build</mat-icon><span>&nbsp;Projects</span>
       </a>
       <a  
+        mat-list-item 
+        routerLink="/notes" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{exact: true}" 
+        (click)="clickHandler()" 
+        class="nav-item nav-link"
+        >
+        <mat-icon>note_add</mat-icon><span>&nbsp;Notes</span>
+      </a>
+      <a  
       mat-list-item 
       routerLink="/accounts/list/Admin" 
       routerLinkActive="active" 
