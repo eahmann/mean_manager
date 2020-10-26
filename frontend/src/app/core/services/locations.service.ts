@@ -5,24 +5,24 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Project } from '@core/models';
+import { Location } from '@core/models';
 
 const baseUrl = `${environment.apiUrl}/locations`;
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
-    private locationSubject: BehaviorSubject<Project>;
-    public location: Observable<Project>;
+    private locationSubject: BehaviorSubject<Location>;
+    public location: Observable<Location>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.locationSubject = new BehaviorSubject<Project>(null);
+        this.locationSubject = new BehaviorSubject<Location>(null);
         this.location = this.locationSubject.asObservable();
     }
 
-    public get locationValue(): Project {
+    public get locationValue(): Location {
         return this.locationSubject.value;
     }
 
@@ -40,14 +40,14 @@ export class LocationService {
 
     update(id, params): Observable<any> {
         return this.http.put(`${baseUrl}/${id}`, params, { withCredentials: true })
-            .pipe(map((project: any) => {
+            .pipe(map((location: any) => {
                 // update the current account if it was updated
-                if (project.id === this.locationValue.id) {
+                if (location.id === this.locationValue.id) {
                     // publish updated account to subscribers
-                    project = { ...this.locationValue, ...project };
-                    this.locationSubject.next(project);
+                    location = { ...this.locationValue, ...location };
+                    this.locationSubject.next(location);
                 }
-                return project;
+                return location;
             }));
     }
 
