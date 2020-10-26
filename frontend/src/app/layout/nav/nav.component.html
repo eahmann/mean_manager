@@ -14,7 +14,7 @@
           (click)="clickHandler()" 
           class="nav-item nav-link"
           >
-          <mat-icon>home</mat-icon><span> Dashboard</span>
+          <mat-icon>home</mat-icon><span>&nbsp;Dashboard</span>
         </a>
         <a  
         mat-list-item 
@@ -24,38 +24,38 @@
         (click)="clickHandler()" 
         class="nav-item nav-link"
         >
-        <mat-icon>build</mat-icon><span> Projects</span>
+        <mat-icon>build</mat-icon><span>&nbsp;Projects</span>
       </a>
       <a  
       mat-list-item 
-      routerLink="/accounts" 
+      routerLink="/accounts/list/Admin" 
       routerLinkActive="active" 
       [routerLinkActiveOptions]="{exact: true}" 
       (click)="clickHandler()" 
       class="nav-item nav-link"
       >
-      <mat-icon>work</mat-icon><span> Employees</span>
+      <mat-icon>work</mat-icon><span>&nbsp;Employees</span>
     </a>
     <a  
     mat-list-item 
-    routerLink="/accounts" 
+    routerLink="/accounts/list/User" 
     routerLinkActive="active" 
     [routerLinkActiveOptions]="{exact: true}" 
     (click)="clickHandler()" 
     class="nav-item nav-link"
     >
-    <mat-icon>people</mat-icon><span> Customers</span>
+    <mat-icon>people</mat-icon><span>&nbsp;Customers</span>
   </a>
 
           <a  
           mat-list-item 
-          routerLink="/accounts" 
+          routerLink="/accounts/list/all" 
           routerLinkActive="active" 
           [routerLinkActiveOptions]="{exact: true}" 
           (click)="clickHandler()" 
           class="nav-item nav-link"
           >
-          <mat-icon>account_box</mat-icon><span> Accounts</span>
+          <mat-icon>account_box</mat-icon><span>&nbsp;Accounts</span>
         </a>
         <a  
         mat-list-item 
@@ -65,7 +65,7 @@
         (click)="clickHandler()" 
         class="nav-item nav-link"
         >
-        <mat-icon>schedule</mat-icon><span> Time Cards</span>
+        <mat-icon>schedule</mat-icon><span>&nbsp;Time Cards</span>
       </a>
       </div>
     <mat-divider *ngIf="isHandset$ | async"></mat-divider>
