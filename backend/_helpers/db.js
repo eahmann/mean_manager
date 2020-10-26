@@ -8,7 +8,8 @@ module.exports = {
     Account: require('accounts/account.model'),
     RefreshToken: require('accounts/refresh-token.model'),
     isValidId,
-    Project: require('projects/project.model')
+    Project: require('projects/project.model'),
+    Note: require('notes/note.model')
 };
 
 function isValidId(id) {

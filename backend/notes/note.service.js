@@ -50,8 +50,8 @@ async function _delete(id) {
 
 // helper functions
 function basicNote(note) {
-    const { id, visibility, title, description, created, updated } = note;
-    return { id, visibility, title, description, created, updated };
+    const { id, visibility, account, title, description, created, updated } = note;
+    return { id, visibility, account, title, description, created, updated };
 }
 
 async function getNote(id) {

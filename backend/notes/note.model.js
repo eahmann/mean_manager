@@ -7,7 +7,8 @@ const schema = new Schema({
     account: { type: ObjectId, ref: "Account", required: true},
     title: { type: String, required: true },
     description: { type: String, required: true },
-    lastName: { type: String, required: true },
+    created: { type: Date, default: Date.now },
+    updated: Date 
 });
 
 schema.set('toJSON', {
