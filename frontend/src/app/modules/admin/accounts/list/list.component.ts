@@ -37,7 +37,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.isLoadingResults = true;
-      this.selected = params.type || 'All';
+      this.selected = params.type || 'all';
       this.accountService.getAllByRole(this.selected)
       .pipe(first())
       .subscribe(accounts => {

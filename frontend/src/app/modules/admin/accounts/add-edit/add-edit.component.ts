@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -22,6 +23,7 @@ export class AddEditComponent implements OnInit {
         private router: Router,
         private accountService: AccountService,
         private alertService: AlertService,
+        private location: Location
     ) {
     }
 
@@ -69,8 +71,11 @@ export class AddEditComponent implements OnInit {
         }
     }
 
-    onCancel(): void {
-        this.router.navigateByUrl('/accounts');
+    onCancel(e: Event): void {
+        // This is needed to prevent form submission
+        e.preventDefault();
+        // This is needed so we navigate back to the correct page
+        this.location.back();
     }
 
     private createAccount(): void {
