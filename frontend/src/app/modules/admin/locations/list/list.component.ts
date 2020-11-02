@@ -8,6 +8,9 @@ import { first } from "rxjs/operators";
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  //dataSource: MatTableDataSource<Project>;
+  projects: any[];
 
   constructor(
     private locationService: LocationService
@@ -16,6 +19,13 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.locationService.getAll()
     .pipe(first())
+    .subscribe(projects => {
+      this.projects = projects;
+      console.log(this.projects);
+    })
+
+
   }
+
 
 }

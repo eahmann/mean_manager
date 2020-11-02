@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
+    id: { type: String, required: true},
     addressLine1: { type: String, required: true },
     addressLine2: { type: String, required: false },
     city: { type: String, required: true},
@@ -10,7 +11,7 @@ const schema = new Schema({
 });
 
 schema.set('toJSON', {
-    virtuals: true,
+    virtual: true,
     versionKey: false,
     transform: function (ret) {
         // remove these props when object is serialized

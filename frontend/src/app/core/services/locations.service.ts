@@ -7,7 +7,7 @@ import { map, finalize } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Location } from '@core/models';
 
-const baseUrl = `${environment.apiUrl}/location`;
+const baseUrl = `${environment.apiUrl}/locations`;
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {

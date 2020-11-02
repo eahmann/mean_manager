@@ -2,9 +2,9 @@ export class Location {
     id: string;
     addressLine1: string;
     addressLine2: string;
-    city: boolean;
+    city: string;
     state: string;
-    zipCode: string;
+    zipCode: number;
 }
 
 
