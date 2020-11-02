@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    visibility: { type: Role, required: true},
+    visibility: { type: String, required: true},
     account: { type: ObjectId, ref: "Account", required: true},
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -12,7 +12,7 @@ const schema = new Schema({
 });
 
 schema.set('toJSON', {
-    virtuals: true,
+    virtual: true,
     versionKey: false,
     transform: function (doc, ret) {
         // remove these props when object is serialized
