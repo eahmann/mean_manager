@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LocationService } from '@core/services';
+import { first } from "rxjs/operators";
 
 @Component({
   selector: 'app-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private locationService: LocationService
+    ) { }
 
   ngOnInit(): void {
+    this.locationService.getAll()
+    .pipe(first())
   }
 
 }
