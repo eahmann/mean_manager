@@ -1,1 +1,29 @@
-<p>add-edit works!</p>
+<p>Create Note</p>
+<mat-card>
+    <form>
+        <div>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>
+                    Note title
+                </mat-label>
+                    <input matInput placeholder="Enter Note title" formControlName="title">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>
+                    Description
+                </mat-label>
+                    <input matInput placeholder="Enter Description" formControlName='description'>
+            </mat-form-field>
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="1">Public</mat-radio-button>
+                <mat-radio-button value="2">Private</mat-radio-button>
+                <mat-radio-button value="3">Protected</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Note Body</mat-label>
+                <textarea matInput></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-card>

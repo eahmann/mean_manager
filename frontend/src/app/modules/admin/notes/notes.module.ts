@@ -5,6 +5,7 @@ import { NotesRoutingModule } from './notes-routing.module';
 import { AddEditComponent } from './add-edit/add-edit.component';
 import { ListComponent } from './list/list.component';
 import { MaterialModule } from '@shared/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +13,9 @@ import { MaterialModule } from '@shared/material';
   imports: [
     CommonModule,
     NotesRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class NotesModule { }
