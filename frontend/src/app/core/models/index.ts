@@ -6,6 +6,5 @@ export * from './location';
 export * from './menu-item';
 export * from './accountSearchResults';
 
-
 export * from './page';
 export * from './paged-data';
