@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+
+import { LocationService, AlertService } from '@core/services';
+import { MustMatch } from '@core/helpers';
+import { Role } from '@core/models';
 
 @Component({
   selector: 'app-add-edit',
@@ -6,11 +14,97 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-edit.component.scss']
 })
 export class AddEditComponent implements OnInit {
+    form: FormGroup;
+    id: string;
+    isAddMode: boolean;
+    loading = false;
+    submitted = false;
+    roles: typeof Role = Role;
 
-  constructor() { }
-
-  ngOnInit(): void {
-    
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private locationService: LocationService,
+    private alertService: AlertService,
+    private location: Location
+   ) {
   }
 
+  ngOnInit(): void {
+        this.id = this.route.snapshot.params.id;
+        this.isAddMode = !this.id;
+        this.form = this.formBuilder.group({
+            addressLine1: [''],
+            addressLine2: [''],
+            city: [''],
+            state: [''],
+            zipCode: [''],
+            confirmPassword: ['']
+        }, {});
+
+        if (!this.isAddMode) {
+            this.locationService.getById(this.id)
+                .pipe(first())
+                .subscribe(x => this.form.patchValue(x));
+        }
+    }
+    // convenience getter for easy access to form fields
+    get f(): any { return this.form.controls; }
+
+    onSubmit(): void {
+        this.submitted = true;
+
+        // reset alerts on submit
+        this.alertService.clear();
+
+        // stop here if form is invalid
+        if (this.form.invalid) {
+            return;
+        }
+
+        this.loading = true;
+        if (this.isAddMode) {
+            this.createLocation();
+        } else {
+            this.updateLocation();
+        }
+    }
+
+    onCancel(e: Event): void {
+        // This is needed to prevent form submission
+        e.preventDefault();
+        // This is needed so we navigate back to the correct page
+        this.location.back();
+    }
+
+    private createLocation(): void {
+        this.locationService.create(this.form.value)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                    this.alertService.success('Location created successfully', { keepAfterRouteChange: true });
+                    this.router.navigate(['../'], { relativeTo: this.route });
+                },
+                error: error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                }
+            });
+    }
+
+    private updateLocation(): void {
+        this.locationService.update(this.id, this.form.value)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                    this.alertService.success('Update successful', { keepAfterRouteChange: true });
+                    this.router.navigate(['../'], { relativeTo: this.route });
+                },
+                error: error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                }
+            });
+    }
 }

@@ -1,6 +1,5 @@
-<h1>Locations</h1> 
-
-<mat-form-field>
-    <mat-label></mat-label>
-    <input placeholder="Just a placeholder">
+<h1>Locations</h1>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input #input matInput (keyup)="applyFilter($event)">
   </mat-form-field>
