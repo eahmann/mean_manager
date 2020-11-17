@@ -14,20 +14,20 @@ import { first } from "rxjs/operators";
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['', '', '', ''];
-  dataSource: MatTableDataSource<Location>;
+  displayedColumns: string[] = ['Address', 'City', 'State', 'Zip'];
+  dataSource: MatTableDataSource<Account>;
   //locations: LocationSearchResult[] | any[];
   data: Location[] | any[] = [];
   selected: string;
-
   locations: any[];
+  isLoadingResults = true;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private locationService: LocationService,
     private route: ActivatedRoute
-    ) { }
+    ) {console.log(this.dataSource); }
 
     ngOnInit(): void {
       this.locationService.getAll()
