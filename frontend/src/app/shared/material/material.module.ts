@@ -89,7 +89,7 @@ const AllMaterialModules = [
 ];
 
 @NgModule({
-  imports: [AllMaterialModules],
+  imports: [AllMaterialModules, MatFormFieldModule, MatInputModule,],
   exports: [AllMaterialModules],
 })
 export class MaterialModule {}

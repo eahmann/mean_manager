@@ -23,8 +23,5 @@ export class ListComponent implements OnInit {
       this.projects = projects;
       console.log(this.projects);
     })
-
   }
-
-
 }
