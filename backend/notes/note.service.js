@@ -12,7 +12,7 @@ module.exports = {
 };
 
 async function getAll() {
-    const notes = await db.Note.find();
+    const notes = await db.Note.find().populate('account');
     return notes.map(x => basicNote(x));
 }
 
@@ -21,9 +21,11 @@ async function getById(id) {
     return basicNote(note);
 }
 
-async function create(params) {
-    const note = new db.Note(params);
+async function create(req) {
+    console.log(req.body);
+    const note = new db.Note(req.body);
     note.created = Date.now();
+    note.account = req.user.id;
 
     // save note
     await note.save();

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GridColumnStyleBuilder } from '@angular/flex-layout/grid/typings/column/column';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { NoteService } from '@core/services';
 
 @Component({
   selector: 'app-add-edit',
@@ -10,13 +12,19 @@ import { FormGroup } from '@angular/forms';
 export class AddEditComponent implements OnInit {
   noteForm: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,
+              private noteService: NoteService){ }
 
   get form(){return this.noteForm.controls; }
 
   ngOnInit(): void {
+    this.noteForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      visibility: ['', Validators.required],
+      noteBody: ['', Validators.required]
+    });
   }
-  /**
   onSubmit() {
     console.log(this.noteForm.value);
     this.noteService.create(this.noteForm.value)
@@ -25,5 +33,4 @@ export class AddEditComponent implements OnInit {
           console.log(res);
       });
   }
-*/
 }

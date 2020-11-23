@@ -1,6 +1,6 @@
 <p>Create Note</p>
 <mat-card>
-    <form>
+    <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
         <div>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>
@@ -12,18 +12,24 @@
                 <mat-label>
                     Description
                 </mat-label>
-                    <input matInput placeholder="Enter Description" formControlName='description'>
+                    <input matInput placeholder="Enter Description" formControlName="description">
             </mat-form-field>
-            <mat-radio-group aria-label="Select an option">
-                <mat-radio-button value="1">Public</mat-radio-button>
-                <mat-radio-button value="2">Private</mat-radio-button>
-                <mat-radio-button value="3">Protected</mat-radio-button>
+            <mat-radio-group aria-label="Select an option" formControlName="visibility">
+                <mat-radio-button value="public">Public</mat-radio-button>
+                <mat-radio-button value="private">Private</mat-radio-button>
+                <mat-radio-button value="protected">Protected</mat-radio-button>
             </mat-radio-group>
-            <br>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Note Body</mat-label>
-                <textarea matInput></textarea>
+                <textarea matInput formControlName="noteBody"></textarea>
             </mat-form-field>
+        </div>
+        <div fxLayout = "row">
+            <div fxFlex = "grow"></div>
+            <div fxFlex = "noshrink">
+                <button mat-raised-button class="mr-3" color="primary">Submit</button>
+                <button type="button" color="primary" mat-raised-button (click)="noteForm.reset()">Reset</button>
+            </div>
         </div>
     </form>
 </mat-card>

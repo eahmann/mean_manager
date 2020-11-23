@@ -6,6 +6,7 @@ import { AddEditComponent } from './add-edit/add-edit.component';
 import { ListComponent } from './list/list.component';
 import { MaterialModule } from '@shared/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NotesRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
   ]
 })
 export class NotesModule { }
