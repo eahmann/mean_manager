@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['created', 'account', 'title', 'description','visibility'];
+  displayedColumns: string[] = ['created', 'account', 'title', 'description','visibility','action'];
   dataSource: MatTableDataSource<Note>;
   notes: any[]
 
