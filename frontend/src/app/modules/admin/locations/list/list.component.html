@@ -3,7 +3,7 @@
     <mat-label>Filter</mat-label>
     <input #input matInput (keyup)="applyFilter($event)">
   </mat-form-field>
-
+  
   <div class="mat-elevation-z3">
 
     <table mat-table [dataSource]="dataSource" matSort>
@@ -11,6 +11,21 @@
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
       <td mat-cell *matCellDef="let location"> {{location.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+      <td mat-cell *matCellDef="let location"> {{location.addressLine1}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let location"> {{location.city}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="onsite">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> OnSite </th>
+      <td mat-cell *matCellDef="let location"> {{location.onsite ? 'Yes' : 'No' }} </td>
     </ng-container>
 
       <ng-container matColumnDef="actions">
@@ -41,7 +56,5 @@
      mode="indeterminate">
    </mat-progress-spinner>
  </div>
-  
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
-

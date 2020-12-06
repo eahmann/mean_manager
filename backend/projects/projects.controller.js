@@ -26,7 +26,6 @@ function getById(req, res, next) {
     if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
-
     projectService.getById(req)
         .then(project => project ? res.json(project) : res.sendStatus(404))
         .catch(next);
@@ -71,7 +70,7 @@ function update(req, res, next) {
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
-
+    
     projectService.update(req.params.id, req.body)
         .then(project => res.json(project))
         .catch(next);

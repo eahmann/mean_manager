@@ -25,17 +25,17 @@ function getById(req, res, next) {
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
-
     locationService.getById(req.params.id)
         .then(location => location ? res.json(location) : res.sendStatus(404))
         .catch(next);
 }
 
-
 function createSchema(req, res, next) {
     const schema = Joi.object({
+        onsite: Joi.boolean().required(),
+        track: Joi.string().required(),
+        project: Joi.string().required(),
         addressLine1: Joi.string().required(),
-        addressLine2: Joi.string(),
         city: Joi.string().required(),
         state: Joi.string().required(),
         zipCode: Joi.number().required()
@@ -51,8 +51,10 @@ function create(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schemaRules = {
+        onsite: Joi.boolean().empty(''),
+        track: Joi.string().empty(''),
+        project: Joi.string().empty(''),
         addressLine1: Joi.string().empty(''),
-        addressLine2: Joi.string().empty(''),
         city: Joi.string().empty(''),
         state: Joi.string().empty(''),
         zipCode: Joi.number().empty('')
@@ -62,9 +64,8 @@ function updateSchema(req, res, next) {
     validateRequest(req, next, schema);
 }
 
-
 function update(req, res, next) {
-    // admins can update any project
+    // admins can update any location
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -75,7 +76,7 @@ function update(req, res, next) {
 }
 
 function _delete(req, res, next) {
-    //admins can delete any account
+    //admins can delete any location
     if (req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }

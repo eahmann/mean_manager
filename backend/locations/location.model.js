@@ -1,17 +1,19 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    id: { type: String, required: true},
+    onsite: Boolean,
+    track: { type: String, required: false },
+    project: { type: ObjectId, ref: "Project", required: false},
     addressLine1: { type: String, required: true },
-    addressLine2: { type: String, required: false },
     city: { type: String, required: true},
     state: { type: String, required: true},
-    zipCode: { type: Number, required: true}
+    zipCode: { type: Number, required: false}
 });
 
 schema.set('toJSON', {
-    virtual: true,
+    virtuals: true,
     versionKey: false,
     transform: function (ret) {
         // remove these props when object is serialized
@@ -19,4 +21,4 @@ schema.set('toJSON', {
     }
 });
 
-module.exports = mongoose.model('locations', schema);
+module.exports = mongoose.model('Location', schema);

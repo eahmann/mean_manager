@@ -49,8 +49,8 @@ async function _delete(id) {
 }
 
 function basicLocation(location) {
-    const {id, addressLine1, addressLine2, city, state, zipCode } = location;
-    return {id, addressLine1, addressLine2, city, state, zipCode };
+    const { id, onsite, track, project, addressLine1, city, state, zipCode } = location;
+    return { id, onsite, track, project, addressLine1, city, state, zipCode };
 }
 
 async function getLocation(id) {
