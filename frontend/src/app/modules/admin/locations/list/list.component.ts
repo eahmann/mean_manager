@@ -1,4 +1,3 @@
-
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LocationService } from '@core/services';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,6 +16,7 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = ['Address', 'City', 'State', 'Zip'];
   dataSource: MatTableDataSource<Account>;
   //locations: LocationSearchResult[] | any[];
+
   data: Location[] | any[] = [];
   selected: string;
   locations: any[];
