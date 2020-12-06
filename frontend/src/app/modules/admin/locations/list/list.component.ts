@@ -15,7 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'address', 'city', 'onsite', 'actions'];
+  displayedColumns: string[] = ['project', 'id', 'address', 'city', 'onsite', 'actions'];
   dataSource: MatTableDataSource<Account>;
   locations: any[];
   isLoadingResults = true;

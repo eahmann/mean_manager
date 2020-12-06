@@ -19,6 +19,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';;
 import { EnumToArrayPipe } from './core/pipes/enum-to-array.pipe'
+import { GoogleMapsModule } from '@angular/google-maps'
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { EnumToArrayPipe } from './core/pipes/enum-to-array.pipe'
         MaterialModule,
         FlexLayoutModule,
         LayoutModule,
+        GoogleMapsModule,
       ],
     declarations: [
         AppComponent,
