@@ -35,10 +35,13 @@ import { MapDialogComponent } from './modules/admin/locations/map-dialog/map-dia
         FlexLayoutModule,
         LayoutModule,
         GoogleMapsModule,
-        MapDialogComponent,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDLgf5H2GVr5N4K2SwDd6tzTgPJ_VFvM3E'
+          })
       ],
     declarations: [
         AppComponent,
+        MapDialogComponent,
         AlertComponent,
         HomeComponent,
         NavComponent,
@@ -50,6 +53,9 @@ import { MapDialogComponent } from './modules/admin/locations/map-dialog/map-dia
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [
+        MapDialogComponent,
+    ]
 })
 export class AppModule { }
