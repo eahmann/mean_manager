@@ -9,7 +9,6 @@ describe('MapService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(MapService);
   });
-
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

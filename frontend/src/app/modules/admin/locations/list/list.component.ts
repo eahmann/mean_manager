@@ -5,7 +5,7 @@ import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { first } from 'rxjs/operators';
-import { Location } from '@core/models';
+import { Location, LocationSearchResult } from '@core/models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MapDialogComponent } from '../map-dialog/map-dialog.component';
@@ -17,11 +17,12 @@ import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 })
 
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['project', 'id', 'address', 'city', 'onsite', 'actions'];
+  displayedColumns: string[] = ['project', 'id', 'address', 'city', 'zip', 'onsite', 'actions'];
   dataSource: MatTableDataSource<Account>;
-  locations: any[];
+  locations: LocationSearchResult[] | any[];
   address: string[] = ['address', 'city', 'zipCode'];
   isLoadingResults = true;
+  isLoadingMap = true;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -50,20 +51,18 @@ export class ListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openMapDialog(index: number) {
-    const address = `
-      ${this.locations[index].addressLine1},
-      ${this.locations[index].city},
-      ${this.locations[index].state},
-      ${this.locations[index].zipCode}
-    `;
+  openMapDialog(zipCode: string) {
+    const address = "Marshall Minnesota"
+    
+    //const address = this.locations.find(x => x.zipCode === zipCode );
     const dialogRef = this.dialog.open(MapDialogComponent, {
       width: '70vw',
       maxHeight: '90vh',
-      data: (address || '')})    
+      data: ( address || '')})    
       dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+    this.isLoadingMap = false;
   }
 
 

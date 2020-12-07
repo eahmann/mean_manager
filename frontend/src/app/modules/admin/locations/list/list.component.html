@@ -1,3 +1,4 @@
+<script src="https://maps.google.com/maps/api/js"></script>
 <h1>Locations</h1>
 
   <mat-form-field>
@@ -27,6 +28,11 @@
       <td mat-cell *matCellDef="let location"> {{location.city}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="zip">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Zip </th>
+      <td mat-cell *matCellDef="let location"> {{location.zipCode}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="onsite">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> OnSite </th>
       <td mat-cell *matCellDef="let location"> {{location.onsite ? 'Yes' : 'No' }} </td>
@@ -37,6 +43,7 @@
         </th>
         <td mat-cell *matCellDef="let row">
           <a mat-raised-button routerLink="edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
+          <button mat-raised-button (click)="openMapDialog('56258')" color="warn" >Map</button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

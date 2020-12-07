@@ -1,4 +1,5 @@
-export class Location {
+
+export interface Location {
     id: string;
     onsite: boolean;
     track: string;
