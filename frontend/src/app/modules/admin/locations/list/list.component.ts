@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
   address: string[] = ['address', 'city', 'zipCode'];
   isLoadingResults = true;
   isLoadingMap = true;
+  
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,7 +34,6 @@ export class ListComponent implements OnInit {
     ) {
     console.log(this.dataSource);
 }
-
   ngOnInit(): void {
     this.locationService.getAll()
         .pipe(first())
@@ -50,18 +50,20 @@ export class ListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  openMapDialog(zipCode: string) {
-    const address = this.locations.find(x => x.zipCode === zipCode );
+  openMapDialog(addressLine1: string, city: string, zipCode: number) {
+    const navInput = `
+      ${addressLine1},
+      ${city},
+      ${zipCode}
+    `
+    console.log(navInput);
     const dialogRef = this.dialog.open(MapDialogComponent, {
       width: '70vw',
       maxHeight: '90vh',
-      data: ( address || '')})    
+      data: ( navInput || '')})    
       dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
     this.isLoadingMap = false;
   }
-
-
 }

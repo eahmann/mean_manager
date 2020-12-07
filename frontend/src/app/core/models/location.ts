@@ -1,4 +1,3 @@
-
 export interface Location {
     id: string;
     onsite: boolean;
@@ -8,5 +7,9 @@ export interface Location {
     city: string;
     state: string;
     zipCode: number;
+}
+export interface MapInfo {
+    lat: number;
+    lng: number;
 }
 

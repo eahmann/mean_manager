@@ -36,7 +36,7 @@ import { MapDialogComponent } from './modules/admin/locations/map-dialog/map-dia
         LayoutModule,
         GoogleMapsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDLgf5H2GVr5N4K2SwDd6tzTgPJ_VFvM3E'
+            apiKey: 'AIzaSyBTOVclh2ktc5NcG3J6GmTBg3rnvSfzRZ0'
           })
       ],
     declarations: [

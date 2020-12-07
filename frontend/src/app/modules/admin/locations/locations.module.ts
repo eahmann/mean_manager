@@ -17,7 +17,7 @@ import { AgmCoreModule } from '@agm/core';
     MaterialModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDLgf5H2GVr5N4K2SwDd6tzTgPJ_VFvM3E'
+      apiKey: 'AIzaSyC8yZHv0yb9MgJWYMuMsNF4BEzxA9vSswA'
     })
   ]
 })

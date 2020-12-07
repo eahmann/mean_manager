@@ -1,6 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MapService } from '../map.service';
+import { MapInfo } from '@core/models';
+import { LocationService } from '@core/services';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ListComponent} from '../list/list.component';
 
 @Component({
   selector: 'app-map-dialog',
@@ -9,22 +13,42 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 
 export class MapDialogComponent implements OnInit {
-  mapInfo: any = <any>{};  constructor(
+    mapInfo: MapInfo[] | any = <any>{};
+    geocoder = new google.maps.Geocoder();
+    
+    constructor(
     public dialogRef: MatDialogRef<MapDialogComponent>,
     @Inject(MAT_DIALOG_DATA) 
     public addressData: string,
-    private mapService: MapService
+    private mapService: MapService,
   ) { }  
+
   ngOnInit() {
     this.getLatLngFromAddress();
+    console.log(this.addressData);
   }  
   getLatLngFromAddress() {
     this.mapService.getLatLngFromAddress(this.addressData)
       .subscribe(res => {
-        const loc = (res as any).results[0].geometry.location;
-        this.mapInfo = {
-          lat: loc.lat,
-          lng: loc.lng
-        }
+        this.geocoder.geocode({ 'address': this.addressData}, function(results, status){
+          if (status == google.maps.GeocoderStatus.OK) {
+            var latitude = results[0].geometry.location.lat();
+            var longitude = results[0].geometry.location.lng();
+            console.log(latitude,longitude)
+          }
+            this.mapInfo = {
+              lat: latitude,
+              lng: longitude,
+            }
+            console.log(this.mapInfo)
+            return this.mapInfo
+        });
       });
-  }}
+  }
+}
+
+
+
+
+
+
