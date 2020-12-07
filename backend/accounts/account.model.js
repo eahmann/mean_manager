@@ -26,6 +26,10 @@ schema.virtual('isVerified').get(function () {
     return !!(this.verified || this.passwordReset);
 });
 
+schema.virtual('fullName').get(function () {
+    return (this.firstName + ' ' + this.lastName);
+});
+
 schema.set('toJSON', {
     virtuals: true,
     versionKey: false,

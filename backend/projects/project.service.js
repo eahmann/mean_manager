@@ -58,7 +58,7 @@ function basicProject(project) {
 
 async function getProject(id) {
     if (!db.isValidId(id)) throw 'Project not found';
-    const project = await db.Project.findById(id);
+    const project = await db.Project.findById(id).populate('customer');
     if (!project) throw 'Project not found';
     return project;
 }

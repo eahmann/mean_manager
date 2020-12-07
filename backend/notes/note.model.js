@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    visibility: { type: Role, required: true},
+    visibility: { type: String, required: true},
     account: { type: ObjectId, ref: "Account", required: true},
     title: { type: String, required: true },
     description: { type: String, required: true },

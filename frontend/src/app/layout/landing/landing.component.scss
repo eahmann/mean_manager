@@ -2,23 +2,13 @@
     flex: 1 1 auto;
   }
 
-// these classes were causing issues for the content on the page
 .full-background {
     height: calc(100vh);
-    background-image: url("https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-image: url("/assets/images/concrete.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    overflow-y: scroll;
 }
-
-@media (min-width: 600px) {
-    .full-background {
-        height: calc(100vh);
-    }
-}
-
-
 
 .larger {
     font-size: larger;

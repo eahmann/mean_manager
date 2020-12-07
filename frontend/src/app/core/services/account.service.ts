@@ -28,7 +28,7 @@ export class AccountService {
         return this.accountSubject.value;
     }
 
-    login(email: string, password: string): Observable<Account> {
+    login(email: string, password: string): Observable<any> {
         return this.http.post<any>(`${baseUrl}/authenticate`, { email, password }, { withCredentials: true })
             .pipe(map(account => {
                 this.accountSubject.next(account);
@@ -134,6 +134,10 @@ export class AccountService {
                     this.logout();
                 }
             }));
+    }
+
+    list(role: string): Observable<Account[]> {
+        return this.http.get<Account[]>(`${baseUrl}/list/${role}`);
     }
 
     // helper methods

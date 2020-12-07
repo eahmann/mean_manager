@@ -1,0 +1,87 @@
+<h1>Create Project</h1>
+<mat-divider class="pb-3"></mat-divider>
+
+<mat-card>
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+        <mat-form-field fxFlex appearance="outline" class="w-100">
+          <mat-label>
+            Project title
+          </mat-label>
+          <input matInput placeholder="Enter title" formControlName="title">
+        </mat-form-field>
+        <mat-form-field fxFlex appearance="outline" class="w-100">
+          <mat-label>
+            Description
+          </mat-label>
+          <input matInput placeholder="Enter description" formControlName="description">
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+      <mat-form-field fxFlex="50" appearance="outline" class="w-100">
+        <mat-label>
+          Customer
+        </mat-label>
+        <input type="text" placeholder="Customer" aria-label="Customer" matInput [matAutocomplete]="auto"
+          formControlName="customer">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of customerFiltered | async" [value]="option">
+            {{option.firstName}} {{option.lastName}}
+          </mat-option>
+        </mat-autocomplete>
+        <button *ngIf="form.customer.value !=''" mat-mini-fab matSuffix color="warn" type="button"
+          (click)="form.customer.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field fxFlex="50" appearance="outline" class="w-100">
+        <mat-label>
+          Location
+        </mat-label>
+        <input type="text" placeholder="Location" aria-label="Location" matInput [matAutocomplete]="auto"
+          formControlName="location">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of customerFiltered | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+        <button *ngIf="form.location.value !=''" mat-mini-fab matSuffix class="suffix-button" color="warn" type="button"
+          (click)="form.location.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+      <mat-form-field fxFlex="25" appearance="outline" class="w-100">
+        <mat-label>Start date</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" appearance="outline" class="w-100">
+        <mat-label>End date</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker2 [startAt]="picker1"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex="50" appearance="outline">
+        <mat-label>Project State</mat-label>
+        <mat-select formControlName="active">
+          <mat-option value="true">
+            Active
+          </mat-option>
+          <mat-option value="false">
+            Inactive
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="grow"></div>
+      <div fxFlex="noshrink">
+        <button class="mr-3" color="primary" mat-raised-button>Submit</button>
+        <button type="button" color="primary" mat-raised-button (click)="projectForm.reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+</mat-card>

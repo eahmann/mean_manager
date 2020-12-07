@@ -1,9 +1,10 @@
+import { Account } from './account';
 export class Project {
     id: string;
     title: string;
     description: string;
     active: boolean;
-    customerId: string;
+    customer: Account;
     locationId: string;
     startDate?: Date;
     endDate?: Date;

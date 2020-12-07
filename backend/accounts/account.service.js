@@ -22,6 +22,7 @@ module.exports = {
     create,
     update,
     delete: _delete,
+    getList,
     getProjectsByAccount
 };
 
@@ -251,6 +252,20 @@ async function _delete(id) {
     await account.remove();
 }
 
+// TODO: User param to get 
+async function getList(req) {
+    if (Object.values(Role).includes(req.params.role)) {
+        accounts = await db.Account.find({ 'role': req.params.role })
+    }
+    else if (req.params.role == 'all') {
+        accounts = await db.Account.find()
+    }
+    else {
+        throw 'Invalid role'
+    }
+        return accounts.map(x => shortDetails(x));
+    }
+
 async function getProjectsByAccount(id) {
     const account = await getAccountProjects(id);
     return { account: { id: account.id, name: account.firstName + " " + account.lastName }, projects: account.projects }
@@ -305,6 +320,11 @@ function randomTokenString() {
 function basicDetails(account) {
     const { id, firstName, lastName, email, role, created, updated, isVerified } = account;
     return { id, firstName, lastName, email, role, created, updated, isVerified };
+}
+
+function shortDetails(account) {
+    const { id, firstName, lastName, fullName, email  } = account;
+    return { id, firstName, lastName, fullName, email };
 }
 
 async function sendVerificationEmail(account, origin) {
