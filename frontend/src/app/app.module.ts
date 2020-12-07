@@ -20,6 +20,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';;
 import { EnumToArrayPipe } from './core/pipes/enum-to-array.pipe'
 import { GoogleMapsModule } from '@angular/google-maps'
+import { AgmCoreModule } from '@agm/core';
+import { MapDialogComponent } from './modules/admin/locations/map-dialog/map-dialog.component';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
         FlexLayoutModule,
         LayoutModule,
         GoogleMapsModule,
+        MapDialogComponent,
       ],
     declarations: [
         AppComponent,

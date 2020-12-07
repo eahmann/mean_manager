@@ -50,11 +50,7 @@ export class ListComponent implements OnInit {
       });
   });
 
-
-
   }
-
-
   deleteAccount(id: string): void {
     const account = this.accounts.find(x => x.id === id);
     account.isDeleting = true;

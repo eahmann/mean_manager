@@ -39,7 +39,7 @@ import { MatRippleModule } from '@angular/material/core';
 
 // *************** POPUPS & MODALS ***************
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef,  MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -47,6 +47,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+
 
 
 const AllMaterialModules = [
