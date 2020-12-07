@@ -14,36 +14,27 @@ import { ListComponent} from '../list/list.component';
 })
 
 export class MapDialogComponent implements OnInit {
-    geocoder = new google.maps.Geocoder();
-    public mapInfo: MapInfo[] | any = <any>{};
-    
+    mapInfo: MapInfo;
 
     constructor(
     public dialogRef: MatDialogRef<MapDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public addressData: string,
     private mapService: MapService,
-  ) { console.log(this.mapInfo) }  
+  ) {}
 
   ngOnInit() {
     this.getLatLngFromAddress();
-    console.log("mapInof"+this.mapInfo);
-    console.log("addressData"+this.addressData);
-  }  
+    console.log('addressData', this.addressData);
+  }
+
   getLatLngFromAddress() {
     this.mapService.getLatLngFromAddress(this.addressData)
       .subscribe(res => {
-        this.geocoder.geocode({ 'address': this.addressData}, function(results, status){
-          if (status == google.maps.GeocoderStatus.OK) {
-            var latitude = results[0].geometry.location.lat();
-            var longitude = results[0].geometry.location.lng();
-            console.log(latitude,longitude)
-            this.mapInfo={
-              lat: latitude,
-              lng: longitude
-            }
-          }
-            console.log(this.mapInfo.lat)
-        });
+        const loc = (res as any).results[0].geometry.location;
+        this.mapInfo = {
+          lat: loc.lat,
+          lng: loc.lng
+        }
       });
   }
 }

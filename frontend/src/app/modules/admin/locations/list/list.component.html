@@ -28,6 +28,11 @@
       <td mat-cell *matCellDef="let location"> {{location.city}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+      <td mat-cell *matCellDef="let location"> {{location.state}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="zip">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Zip </th>
       <td mat-cell *matCellDef="let location"> {{location.zipCode}} </td>
@@ -43,7 +48,7 @@
         </th>
         <td mat-cell *matCellDef="let row">
           <a mat-raised-button routerLink="edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
-          <button mat-raised-button (click)="openMapDialog(row.addressLine1, row.city, row.zipCode)" color="primary" >Map</button>
+          <button mat-raised-button (click)="openMapDialog(row.addressLine1, row.city, row.state, row.zipCode)" color="primary" >Map</button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

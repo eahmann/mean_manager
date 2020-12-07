@@ -17,7 +17,7 @@ import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 })
 
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['project', 'id', 'address', 'city', 'zip', 'onsite', 'actions'];
+  displayedColumns: string[] = ['project', 'id', 'address', 'city', 'state', 'zip', 'onsite', 'actions'];
   dataSource: MatTableDataSource<Account>;
   locations: LocationSearchResult[] | any[];
   address: string[] = ['address', 'city', 'zipCode'];
@@ -50,18 +50,15 @@ export class ListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  openMapDialog(addressLine1: string, city: string, zipCode: number) {
-    const navInput = `
-      ${addressLine1},
-      ${city},
-      ${zipCode}
-    `
+  openMapDialog(addressLine1: string, city: string, state: string, zipCode: number) {
+    const navInput = `${addressLine1} ${city} ${state} ${zipCode}`;
+
     console.log(navInput);
     const dialogRef = this.dialog.open(MapDialogComponent, {
       width: '70vw',
       maxHeight: '90vh',
-      data: ( navInput || '')})    
-      dialogRef.afterClosed().subscribe(result => {
+      data: ( navInput || '')})
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
     this.isLoadingMap = false;
