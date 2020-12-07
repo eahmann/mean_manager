@@ -43,7 +43,7 @@
         </th>
         <td mat-cell *matCellDef="let row">
           <a mat-raised-button routerLink="edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
-          <button mat-raised-button (click)="openMapDialog('56258')" color="warn" >Map</button>
+          <button mat-raised-button (click)="openMapDialog(row.zipCode)" color="warn" >Map</button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
