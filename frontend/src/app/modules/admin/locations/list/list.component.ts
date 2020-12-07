@@ -52,12 +52,11 @@ export class ListComponent implements OnInit {
   }
 
   openMapDialog(zipCode: string) {
-
     const address = this.locations.find(x => x.zipCode === zipCode );
     const dialogRef = this.dialog.open(MapDialogComponent, {
       width: '70vw',
       maxHeight: '90vh',
-      data: ( 56258 || '')})    
+      data: ( address || '')})    
       dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
