@@ -1,6 +1,5 @@
 import { LocationService } from '@core/services';
 
-
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';

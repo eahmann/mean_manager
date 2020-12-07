@@ -1,11 +1,12 @@
+
 import { Component, OnInit, Inject } from '@angular/core';
-import { MapService } from '../map.service';
+import { MapService } from './map.service';
 import { MapInfo } from '@core/models';
 import { LocationService } from '@core/services';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ListComponent} from '../list/list.component';
+
 
 @Component({
   selector: 'app-map-dialog',
