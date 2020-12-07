@@ -1,11 +1,12 @@
+
 import { Component, OnInit, Inject } from '@angular/core';
-import { MapService } from '../map.service';
+import { MapService } from './map.service';
 import { MapInfo } from '@core/models';
 import { LocationService } from '@core/services';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ListComponent} from '../list/list.component';
+
 
 @Component({
   selector: 'app-map-dialog',
@@ -16,6 +17,8 @@ import { ListComponent} from '../list/list.component';
 export class MapDialogComponent implements OnInit {
     geocoder = new google.maps.Geocoder();
     public mapInfo: MapInfo[] | any = <any>{};
+    public lat: number = this.mapInfo.lat;
+    public lng: number = this.mapInfo.lng;
     
 
     constructor(
@@ -41,8 +44,11 @@ export class MapDialogComponent implements OnInit {
               lat: latitude,
               lng: longitude
             }
+            this.lat =  this.mapInfo.lat;
+            this.lng = this.mapInfo.lng;
           }
             console.log(this.mapInfo.lat)
+            console.log(this.lat, this.lng)
         });
       });
   }

@@ -1,6 +1,5 @@
 import { LocationService } from '@core/services';
 
-
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { Location, LocationSearchResult } from '@core/models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { MapDialogComponent } from '../map-dialog/map-dialog.component';
+import { MapDialogComponent } from './modules/admin/locations/map-dialog/map-dialog.component';
 
 @Component({
   selector: 'app-list',
@@ -60,7 +59,7 @@ export class ListComponent implements OnInit {
     const dialogRef = this.dialog.open(MapDialogComponent, {
       width: '70vw',
       maxHeight: '90vh',
-      data: ( navInput || '')})    
+      data: (navInput || '')})    
       dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
