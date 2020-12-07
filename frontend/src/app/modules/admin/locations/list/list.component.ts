@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { Location, LocationSearchResult } from '@core/models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { MapDialogComponent } from './modules/admin/locations/map-dialog/map-dialog.component';
+import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 
 @Component({
   selector: 'app-list',
