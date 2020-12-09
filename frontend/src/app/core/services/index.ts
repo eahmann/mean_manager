@@ -4,3 +4,5 @@ export * from './location.service';
 export * from './project.service';
 export * from './navigate.service';
 export * from './map.service';
+export * from './note.service';
+//export * from './account.datasource';

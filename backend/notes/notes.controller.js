@@ -37,12 +37,13 @@ function createSchema(req, res, next) {
         title: Joi.string().required(),
         description: Joi.string().required(),
         visibility: Joi.string().required(),
+        noteBody: Joi.string().required()
     });
     validateRequest(req, next, schema);
 }
 
 function create(req, res, next) {
-    noteService.create(req.body)
+    noteService.create(req)
         .then(note => res.json(note))
         .catch(next);
 }
