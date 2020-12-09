@@ -1,8 +1,10 @@
-<p>Create Note</p>
 <mat-card>
+    <mat-card-title class="text-center pb-2">
+        <span *ngIf="isAddMode">Create Note</span>
+        <span *ngIf="!isAddMode">Edit Note</span>
+    </mat-card-title>
     <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
         <div>
-
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Note title</mat-label>
                     <input matInput placeholder="Enter Note title" formControlName="title">

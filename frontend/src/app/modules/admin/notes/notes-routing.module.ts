@@ -8,7 +8,8 @@ import { ListComponent } from './list';
 
 const routes: Routes = [
       { path: '', component: ListComponent },
-      { path: 'add', component: AddEditComponent}
+      { path: 'add', component: AddEditComponent},
+      {path: 'edit/:id', component: AddEditComponent}
 ];
 
 @NgModule({
