@@ -36,7 +36,6 @@ export class AddEditComponent implements OnInit {
         this.isAddMode = !this.id;
         this.locationForm = this.formBuilder.group({
             onsite: ['', Validators.required],
-            track: ['', Validators.required],
             project: ['', Validators.required],
             addressLine1: ['', Validators.required],
             city: ['', Validators.required],
