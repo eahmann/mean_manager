@@ -6,7 +6,7 @@ import { LocationsRoutingModule } from './locations-routing.module';
 import { ListComponent } from './list/list.component';
 import { MapDialogComponent } from './map-dialog/map-dialog.component';
 import { AgmCoreModule } from '@agm/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 

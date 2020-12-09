@@ -44,8 +44,8 @@ export class AddEditComponent implements OnInit {
             zipCode: ['', Validators.required],
         }, {});
     }
-    
-    onSubmit() {
+
+    onSubmit(): void {
         console.log(this.locationForm.value);
         this.locationService.create(this.locationForm.value)
           .pipe(first())
