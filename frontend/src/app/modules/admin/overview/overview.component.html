@@ -3,6 +3,7 @@
 
 <mat-divider></mat-divider><br>
 <div fxLayout="row wrap" fxLayout.lt-xs="column" fxLayoutAlign="space-evenly start">
+
   <mat-card class="dashboard-card mt-3">
     <mat-card-title>Accounts</mat-card-title>
     <mat-divider></mat-divider>
@@ -11,6 +12,7 @@
       <a mat-raised-button color="primary" class="my-3" routerLink="accounts/add">Create account</a>
     </mat-card-content>
   </mat-card>
+
   <mat-card class="dashboard-card mt-3">
     <mat-card-title>Projects</mat-card-title>
     <mat-divider></mat-divider>
@@ -19,12 +21,17 @@
       <a mat-raised-button color="primary" class="my-3" routerLink="projects/add">Create project</a>
     </mat-card-content>
   </mat-card>
+
   <mat-card class="dashboard-card mt-3">
     <mat-card-title>Notes</mat-card-title>
     <mat-divider></mat-divider>
     <mat-card-content class="p-3">
       <a mat-raised-button color="primary" class="my-3" routerLink="notes">View all notes</a>
       <a mat-raised-button color="primary" class="my-3" routerLink="notes/add">Create note</a>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card mt-3">
     <mat-card-title>Locations</mat-card-title>
     <mat-divider></mat-divider>
     <mat-card-content class="p-3">
