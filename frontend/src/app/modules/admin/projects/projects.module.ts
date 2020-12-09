@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewComponent } from './view/view.component';
 
-
 @NgModule({
   declarations: [ListComponent, AddEditComponent, ViewComponent],
   imports: [

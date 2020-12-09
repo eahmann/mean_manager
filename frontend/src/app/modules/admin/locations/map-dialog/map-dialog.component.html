@@ -1,0 +1,53 @@
+<h1>Maps</h1>
+<agm-map 
+[zoom] = 16
+[latitude]="mapInfo[0].lat" 
+[longitude]="mapInfo[0].lng">
+    <agm-marker agm-markerCurrent 
+        [latitude]="mapInfo[0].lat"   
+        [longitude]="mapInfo[0].lng"
+        [iconUrl] = "icon"
+        (mouseOver)="onMouseOver(infoWindow, $event)" 
+        (mouseOut)="onMouseOut(infoWindow, $event)"> 
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
+            <div>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                      <div mat-card-avatar class="example-header-image"></div>
+                      <mat-card-title>Project</mat-card-title>
+                      <mat-card-subtitle>Manager: </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <p>
+
+                      </p>
+                    </mat-card-content>
+                  </mat-card>  
+            </div>
+        </agm-info-window>
+    </agm-marker>
+    <agm-marker agm-marker *ngFor="let data of mapInfo; let i = index"
+        [latitude]="mapInfo[i].lat"  
+        [longitude]="mapInfo[i].lng"
+        (mouseOver)="onMouseOver(infoWindow, $event)" 
+        (mouseOut)="onMouseOut(infoWindow, $event)">
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
+            <div>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                      <div mat-card-avatar class="example-header-image"></div>
+                      <mat-card-title>Project</mat-card-title>
+                      <mat-card-subtitle>Manager: </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <p>
+                          {{addressData[i]}}
+                      </p>
+                    </mat-card-content>
+                  </mat-card>  
+            </div>
+        </agm-info-window>
+    </agm-marker>
+
+</agm-map>
+

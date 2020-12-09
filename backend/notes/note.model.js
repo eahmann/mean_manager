@@ -12,7 +12,7 @@ const schema = new Schema({
 });
 
 schema.set('toJSON', {
-    virtuals: true,
+    virtual: true,
     versionKey: false,
     transform: function (doc, ret) {
         // remove these props when object is serialized
