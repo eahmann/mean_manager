@@ -5,6 +5,7 @@ export * from './project';
 export * from './location';
 export * from './menu-item';
 export * from './accountSearchResults';
+export * from './account-short';
 export * from './note';
 
 

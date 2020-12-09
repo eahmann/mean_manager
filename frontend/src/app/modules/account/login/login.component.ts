@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@core/services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     templateUrl: 'login.component.html',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private _snackBar: MatSnackBar
     ) { }
 
     ngOnInit(): void {
@@ -47,13 +49,22 @@ export class LoginComponent implements OnInit {
         this.accountService.login(this.f.email.value, this.f.password.value)
             .pipe(first())
             .subscribe({
-                next: () => {
+                next: account => {
+                    this._snackBar.open('Thank you for logging in, ' + account.firstName , 'SUCCESS', {
+                        duration: 5000,
+                        verticalPosition: 'top',
+                        panelClass: 'snackbar-success'
+                      });
                     // get return url from query parameters or default to home page
                     const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
                     this.router.navigateByUrl(returnUrl);
                 },
                 error: error => {
-                    this.alertService.error(error);
+                    this._snackBar.open(error, 'ERROR', {
+                        duration: 5000,
+                        verticalPosition: 'top',
+                        panelClass: 'snackbar-error'
+                      })
                     this.loading = false;
                 }
             });

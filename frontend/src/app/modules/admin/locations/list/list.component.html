@@ -10,7 +10,7 @@
 
     <ng-container matColumnDef="project">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
-      <td mat-cell *matCellDef="let location"> {{location.project}} </td>
+      <td mat-cell *matCellDef="let location"> {{location.project.title}} </td>
     </ng-container>
   
     <ng-container matColumnDef="id">
