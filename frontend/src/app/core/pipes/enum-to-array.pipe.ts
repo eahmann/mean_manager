@@ -10,3 +10,14 @@ export class EnumToArrayPipe implements PipeTransform {
   }
 
 }
+
+@Pipe({
+  name: 'enumToArray1'
+})
+export class EnumToArrayPipe1 implements PipeTransform {
+
+  transform(value: any): object {
+    return Object.keys(value).filter(e => isNaN(+e)).map(o => ({index: o, name: value[o]}));
+  }
+
+}

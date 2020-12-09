@@ -11,7 +11,8 @@ module.exports = {
     getById,
     create,
     update: update,
-    delete: _delete
+    delete: _delete,
+    getProjectsByLocation
 };
 
 async function getAll() {
@@ -42,15 +43,27 @@ async function update(id, params) {
 
     return basicLocation(location);
 }
+async function getProjectsByLocation(id) {
+    const location = await getLocationProjects(id);
+    return { location: { id: location.id, address: location.addressLine1 + " " + location.city + " " + location.zipCode }, projects: location.projects }
+}
 
 async function _delete(id) {
     const location = await getLocation(id);
     await location.remove();
 }
 
+async function getLocationProjects(id) {
+    if (!db.isValidId(id)) throw 'Project not found';
+    const location = await db.Location.findById(id).populate('projects');
+    if (!location) throw 'Project not found';
+    console.log(location)
+    return location;
+}
+
 function basicLocation(location) {
-    const {id, addressLine1, addressLine2, city, state, zipCode } = location;
-    return {id, addressLine1, addressLine2, city, state, zipCode };
+    const { id, onsite, track, project, addressLine1, city, state, zipCode } = location;
+    return { id, onsite, track, project, addressLine1, city, state, zipCode };
 }
 
 async function getLocation(id) {

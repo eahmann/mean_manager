@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ListComponent } from './list/list.component';
 
-
 @NgModule({
   declarations: [ListComponent],
   imports: [

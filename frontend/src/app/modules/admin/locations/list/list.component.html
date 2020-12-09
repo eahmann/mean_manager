@@ -1,0 +1,71 @@
+<script src="https://maps.google.com/maps/api/js"></script>
+<h1>Locations</h1>
+
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input #input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  <div class="mat-elevation-z3">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="project">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
+      <td mat-cell *matCellDef="let location"> {{location.project}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+      <td mat-cell *matCellDef="let location"> {{location.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+      <td mat-cell *matCellDef="let location"> {{location.addressLine1}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let location"> {{location.city}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+      <td mat-cell *matCellDef="let location"> {{location.state}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="zip">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Zip </th>
+      <td mat-cell *matCellDef="let location"> {{location.zipCode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="onsite">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> OnSite </th>
+      <td mat-cell *matCellDef="let location"> {{location.onsite ? 'Yes' : 'No' }} </td>
+    </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef><a mat-raised-button routerLink="add/" class="mr-1">Create Location</a>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <a mat-raised-button routerLink="edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
+          <button mat-raised-button (click)="openMapDialog(row.addressLine1, row.city, row.state, row.zipCode)" color="primary" >Map</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+
+  <div *ngIf="isLoadingResults" 
+    style="display: flex; justify-content: center; align-items: center; background: white;">
+   <mat-progress-spinner 
+     color="primary" 
+     mode="indeterminate">
+   </mat-progress-spinner>
+ </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
