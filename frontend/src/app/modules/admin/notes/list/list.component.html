@@ -6,6 +6,11 @@
   
   <div class="mat-elevation-z3">
     <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
   
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
@@ -37,8 +42,8 @@
         </th>
         <td mat-cell *matCellDef="let row">
           <div fxLayout = "row">
-              <a mat-raised-button routerLink="add/" color="primary" class="mr-1">Edit</a>
-              <button mat-raised-button (click)="deleteNote(row.created)"color="warn" [disabled]="row.isDeleting">
+              <a mat-raised-button routerLink="edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
+              <button mat-raised-button (click)="deleteNote(row.id)"color="warn" [disabled]="row.isDeleting">
                 <span *ngIf="row.isDeleting" class="spinner-border spinner-border-sm"></span>
                 <span *ngIf="!row.isDeleting">Delete</span>
               </button>
