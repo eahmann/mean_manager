@@ -19,6 +19,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';;
 import { EnumToArrayPipe } from './core/pipes/enum-to-array.pipe'
+import { GoogleMapsModule } from '@angular/google-maps'
+import { AgmCoreModule } from '@agm/core';
+import { MapDialogComponent } from './modules/admin/locations/map-dialog/map-dialog.component';
 
 
 @NgModule({
@@ -31,9 +34,14 @@ import { EnumToArrayPipe } from './core/pipes/enum-to-array.pipe'
         MaterialModule,
         FlexLayoutModule,
         LayoutModule,
+        GoogleMapsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBTOVclh2ktc5NcG3J6GmTBg3rnvSfzRZ0'
+          })
       ],
     declarations: [
         AppComponent,
+        MapDialogComponent,
         AlertComponent,
         HomeComponent,
         NavComponent,
@@ -45,6 +53,9 @@ import { EnumToArrayPipe } from './core/pipes/enum-to-array.pipe'
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [
+        MapDialogComponent,
+    ]
 })
 export class AppModule { }

@@ -14,12 +14,10 @@ const schema = new Schema({
     updated: Date
 });
 
-
 schema.set('toJSON', {
     virtuals: true,
     versionKey: false,
     transform: function (ret) {
-        // remove these props when object is serialized
         delete ret._id;
     }
 });
