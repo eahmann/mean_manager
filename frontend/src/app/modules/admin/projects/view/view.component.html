@@ -10,10 +10,23 @@
            Description: {{ project?.description }}
        </span><br> 
        <span>
+           Project state: {{ project?.active ? 'Active' : 'Inactive' }} 
+       </span><br> 
+       <span>
            Customer: {{ project?.customer?.firstName }} {{ project?.customer?.lastName }}
        </span>
+       <br> 
+       <span>
+           Location: {{ project?.location?.addressLine1 }} {{ project?.location?.city }}, {{ project?.location?.state }} {{ project?.location?.zipCode }}
+       </span>
+
+       <!-- <agm-map [latitude]="mapInfo?.lat" [longitude]="mapInfo?.lng">
+        <agm-marker [latitude]="mapInfo?.lat" [longitude]="mapInfo?.lng"></agm-marker>
+      </agm-map> -->
 
     </mat-card-content>
+
+    <button [disabled]='deleting' mat-stroked-button (click)='onDelete()'>Delete Project</button>
 
 </mat-card>
 </ng-container>

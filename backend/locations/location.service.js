@@ -16,7 +16,7 @@ module.exports = {
 };
 
 async function getAll() {
-    const location = await db.Location.find();
+    const location = await db.Location.find().populate('projects');
     return location.map(x => basicLocation(x));
 }
 

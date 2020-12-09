@@ -38,11 +38,11 @@
         <mat-label>
           Location
         </mat-label>
-        <input type="text" placeholder="Location" aria-label="Location" matInput [matAutocomplete]="auto"
+        <input type="text" placeholder="Location" aria-label="Location" matInput [matAutocomplete]="auto2"
           formControlName="location">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of customerFiltered | async" [value]="option">
-            {{option}}
+        <mat-autocomplete #auto2="matAutocomplete"  [displayWith]="displayFnLoc">
+          <mat-option *ngFor="let option2 of locationFiltered | async" [value]="option2">
+             {{option2.addressLine1 }}, {{option2.city }}, {{option2.state }} {{option2.zipCode }}
           </mat-option>
         </mat-autocomplete>
         <button *ngIf="form.location.value !=''" mat-mini-fab matSuffix class="suffix-button" color="warn" type="button"
