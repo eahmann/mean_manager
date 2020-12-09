@@ -28,6 +28,7 @@
     "@swimlane/ngx-datatable": "^18.0.0",
     "@types/googlemaps": "^3.39.13",
     "i": "^0.3.6",
+    "mat-timepicker": "^5.1.0",
     "nodemon": "^2.0.5",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.0",
