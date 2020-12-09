@@ -1,11 +1,16 @@
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, inject } from '@angular/core';
 import { MapService } from './map.service';
 import { MapInfo } from '@core/models';
+import { MapInfoCurrent } from '@core/models';
 import { LocationService } from '@core/services';
+import { Location, LocationSearchResult } from '@core/models';
 import { MatTableDataSource } from '@angular/material/table';
+import { AgmInfoWindow } from '@agm/core';
+import { first } from 'rxjs/operators';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ListComponent } from '@modules/admin/accounts/list';
 
 
 @Component({
@@ -14,31 +19,70 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./map-dialog.component.scss']
 })
 
-export class MapDialogComponent implements OnInit {
-    mapInfo: MapInfo;
 
+export class MapDialogComponent implements OnInit {
+    mapInfo: MapInfo[] = [];
+    icon = {
+      url: 'frontend/src/app/modules/admin/locations/map-dialog/icons/Yellow_hard_hat.svg',
+      scaledSize: {
+        width: 70,
+        height: 25
+      }
+  };
+    location: Location[];
+    infoWindow: AgmInfoWindow;
+    locations: LocationSearchResult[] | any[];
+    addressData: string[] = [];
+    addressProp: string;
+  
     constructor(
+    private locationService: LocationService,
     public dialogRef: MatDialogRef<MapDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public addressData: string,
+    @Inject(MAT_DIALOG_DATA) public addressCurrent: string,
     private mapService: MapService,
   ) {}
 
-  ngOnInit() {
-    this.getLatLngFromAddress();
-    console.log('addressData', this.addressData);
+  onMouseOver(infoWindow, $event: MouseEvent) {
+    infoWindow.open();
   }
 
+  onMouseOut(infoWindow, $event: MouseEvent) {
+    infoWindow.close();
+  }
+
+  ngOnInit() {
+    this.locationService.getAll()
+      .pipe(first())
+      .subscribe(locations => {
+        this.getLatLngFromAddress();
+        console.log('addressData:', this.addressData);
+        console.log('addressCurrent:', this.addressCurrent);
+        console.log('addressDataGeolocation:', this.mapInfo);
+        this.locations = locations;
+        for(let i in this.locations){
+          this.addressData.push(this.locations[i].addressLine1 +" "+this.locations[i].city+" "+this.locations[i].zipCode)
+          this.getLatLngFill(i)
+        }
+    });
+  }
   getLatLngFromAddress() {
-    this.mapService.getLatLngFromAddress(this.addressData)
+    console.log('addressData in LatLngFunc', this.addressCurrent);
+    console.log('addressData in LatLngFunc', this.addressData.length);
+      this.mapService.getLatLngFromAddress(this.addressCurrent)
       .subscribe(res => {
         const loc = (res as any).results[0].geometry.location;
-        this.mapInfo = {
-          lat: loc.lat,
-          lng: loc.lng
-        }
-      });
+          this.mapInfo.push(loc)
+        });
+  }
+  getLatLngFill(i){
+      this.mapService.getLatLngFill(this.addressData, i)
+      .subscribe(res => {
+        const loc = (res as any).results[0].geometry.location;
+            this.mapInfo.push(loc)
+        });
   }
 }
+
 
 
 

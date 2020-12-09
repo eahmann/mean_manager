@@ -13,3 +13,8 @@ export interface MapInfo {
     lng: number;
 }
 
+export interface MapInfoCurrent {
+    lat: number;
+    lng: number;
+}
+

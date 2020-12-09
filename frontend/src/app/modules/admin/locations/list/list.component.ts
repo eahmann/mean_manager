@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = ['project', 'id', 'address', 'city', 'state', 'zip', 'onsite', 'actions'];
   dataSource: MatTableDataSource<Account>;
   locations: LocationSearchResult[] | any[];
-  address: string[] = ['address', 'city', 'zipCode'];
+  address: string[] = [];
   isLoadingResults = true;
   isLoadingMap = true;
   
@@ -39,19 +39,24 @@ export class ListComponent implements OnInit {
         .subscribe(locations => {
           this.isLoadingResults = false;
           this.locations = locations;
+          for(let i in this.locations){
+            this.address.push(this.locations[i].addressLine1 +" "+this.locations[i].city+" "+this.locations[i].zipCode)
+          }
           console.log(this.locations);
+          console.log(this.address);
           this.dataSource = new MatTableDataSource(this.locations);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
         });
+    
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   openMapDialog(addressLine1: string, city: string, state: string, zipCode: number) {
     const navInput = `${addressLine1} ${city} ${state} ${zipCode}`;
-
     console.log(navInput);
     const dialogRef = this.dialog.open(MapDialogComponent, {
       width: '70vw',

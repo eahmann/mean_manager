@@ -27,6 +27,7 @@ export class ListComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  static address: string[];
 
   constructor(
     private route: ActivatedRoute,

@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { LocationService, AlertService } from '@core/services';
-import { MustMatch } from '@core/helpers';
 import { Role } from '@core/models';
 
 @Component({
@@ -14,7 +13,7 @@ import { Role } from '@core/models';
   styleUrls: ['./add-edit.component.scss']
 })
 export class AddEditComponent implements OnInit {
-    form: FormGroup;
+    locationForm: FormGroup;
     id: string;
     isAddMode: boolean;
     loading = false;
@@ -28,48 +27,32 @@ export class AddEditComponent implements OnInit {
     private locationService: LocationService,
     private alertService: AlertService,
     private location: Location
-   ) {
-  }
+   ) {}
+
+  get form(): any { return this.locationForm.controls; }
 
   ngOnInit(): void {
         this.id = this.route.snapshot.params.id;
         this.isAddMode = !this.id;
-        this.form = this.formBuilder.group({
-            addressLine1: [''],
-            addressLine2: [''],
-            city: [''],
-            state: [''],
-            zipCode: [''],
-            confirmPassword: ['']
+        this.locationForm = this.formBuilder.group({
+            onsite: ['', Validators.required],
+            track: ['', Validators.required],
+            project: ['', Validators.required],
+            addressLine1: ['', Validators.required],
+            city: ['', Validators.required],
+            state: ['', Validators.required],
+            zipCode: ['', Validators.required],
         }, {});
-
-        if (!this.isAddMode) {
-            this.locationService.getById(this.id)
-                .pipe(first())
-                .subscribe(x => this.form.patchValue(x));
-        }
     }
-    // convenience getter for easy access to form fields
-    get f(): any { return this.form.controls; }
-
-    onSubmit(): void {
-        this.submitted = true;
-
-        // reset alerts on submit
-        this.alertService.clear();
-
-        // stop here if form is invalid
-        if (this.form.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        if (this.isAddMode) {
-            this.createLocation();
-        } else {
-            this.updateLocation();
-        }
-    }
+    
+    onSubmit() {
+        console.log(this.locationForm.value);
+        this.locationService.create(this.locationForm.value)
+          .pipe(first())
+          .subscribe(res => {
+              console.log(res);
+          });
+      }
 
     onCancel(e: Event): void {
         // This is needed to prevent form submission
@@ -79,7 +62,7 @@ export class AddEditComponent implements OnInit {
     }
 
     private createLocation(): void {
-        this.locationService.create(this.form.value)
+        this.locationService.create(this.locationForm.value)
             .pipe(first())
             .subscribe({
                 next: () => {
@@ -94,7 +77,7 @@ export class AddEditComponent implements OnInit {
     }
 
     private updateLocation(): void {
-        this.locationService.update(this.id, this.form.value)
+        this.locationService.update(this.id, this.locationForm.value)
             .pipe(first())
             .subscribe({
                 next: () => {
