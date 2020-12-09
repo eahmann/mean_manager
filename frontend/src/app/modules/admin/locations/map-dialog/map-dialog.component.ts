@@ -42,7 +42,7 @@ export class MapDialogComponent implements OnInit {
     private mapService: MapService,
   ) {}
 
-  private 
+  
 
   onMouseOver(infoWindow, $event: MouseEvent) {
     infoWindow.open();
