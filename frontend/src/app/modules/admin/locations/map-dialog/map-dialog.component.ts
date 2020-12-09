@@ -33,7 +33,7 @@ export class MapDialogComponent implements OnInit {
     infoWindow: AgmInfoWindow;
     locations: LocationSearchResult[] | any[];
     addressData: string[] = [];
-    addressProp: string;
+    addressProj: string[] = [];
   
     constructor(
     private locationService: LocationService,
@@ -41,6 +41,8 @@ export class MapDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public addressCurrent: string,
     private mapService: MapService,
   ) {}
+
+  private 
 
   onMouseOver(infoWindow, $event: MouseEvent) {
     infoWindow.open();
@@ -68,6 +70,7 @@ export class MapDialogComponent implements OnInit {
   getLatLngFromAddress() {
     console.log('addressData in LatLngFunc', this.addressCurrent);
     console.log('addressData in LatLngFunc', this.addressData.length);
+    console.log('addressProj:', this.addressProj);
       this.mapService.getLatLngFromAddress(this.addressCurrent)
       .subscribe(res => {
         const loc = (res as any).results[0].geometry.location;
