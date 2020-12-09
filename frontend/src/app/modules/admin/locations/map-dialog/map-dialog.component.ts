@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject, inject } from '@angular/core';
-import { MapService } from './map.service';
+import { MapService } from '@core/services';
 import { MapInfo } from '@core/models';
 import { MapInfoCurrent } from '@core/models';
 import { LocationService } from '@core/services';
@@ -34,7 +34,7 @@ export class MapDialogComponent implements OnInit {
     locations: LocationSearchResult[] | any[];
     addressData: string[] = [];
     addressProj: string[] = [];
-  
+
     constructor(
     private locationService: LocationService,
     public dialogRef: MatDialogRef<MapDialogComponent>,
@@ -42,7 +42,7 @@ export class MapDialogComponent implements OnInit {
     private mapService: MapService,
   ) {}
 
-  
+
 
   onMouseOver(infoWindow, $event: MouseEvent) {
     infoWindow.open();
@@ -61,9 +61,9 @@ export class MapDialogComponent implements OnInit {
         console.log('addressCurrent:', this.addressCurrent);
         console.log('addressDataGeolocation:', this.mapInfo);
         this.locations = locations;
-        for(let i in this.locations){
-          this.addressData.push(this.locations[i].addressLine1 +" "+this.locations[i].city+" "+this.locations[i].zipCode)
-          this.getLatLngFill(i)
+        for (const i in this.locations){
+          this.addressData.push(this.locations[i].addressLine1 + ' ' + this.locations[i].city + ' ' + this.locations[i].zipCode);
+          this.getLatLngFill(i);
         }
     });
   }
@@ -71,17 +71,17 @@ export class MapDialogComponent implements OnInit {
     console.log('addressData in LatLngFunc', this.addressCurrent);
     console.log('addressData in LatLngFunc', this.addressData.length);
     console.log('addressProj:', this.addressProj);
-      this.mapService.getLatLngFromAddress(this.addressCurrent)
+    this.mapService.getLatLngFromAddress(this.addressCurrent)
       .subscribe(res => {
         const loc = (res as any).results[0].geometry.location;
-          this.mapInfo.push(loc)
+        this.mapInfo.push(loc);
         });
   }
   getLatLngFill(i){
       this.mapService.getLatLngFill(this.addressData, i)
       .subscribe(res => {
         const loc = (res as any).results[0].geometry.location;
-            this.mapInfo.push(loc)
+        this.mapInfo.push(loc);
         });
   }
 }

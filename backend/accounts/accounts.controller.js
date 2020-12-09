@@ -22,6 +22,7 @@ router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
+router.get('/list/:role', getList);
 
 // Projects
 router.get('/projects/:id', authorize(), getProjectsByAccount)
@@ -244,6 +245,12 @@ function _delete(req, res, next) {
         .catch(next);
 }
 
+function getList(req, res, next) {
+    accountService.getList(req)
+        .then(accounts => res.json(accounts))
+        .catch(next);
+}
+
 function getProjectsByAccount(req, res, next) {
     // only customers can look up their own projects and Admins and Employees can look up any project
     if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
@@ -261,7 +268,7 @@ function setTokenCookie(res, token) {
     // create cookie with refresh token that expires in 7 days
     const cookieOptions = {
         httpOnly: true,
-        expires: new Date(Date.now() + 7*24*60*60*1000)
+        expires: new Date(Date.now() + 7*24*60*60*1000),
     };
     res.cookie('refreshToken', token, cookieOptions);
 }

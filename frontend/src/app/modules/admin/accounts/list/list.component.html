@@ -27,7 +27,6 @@
 </div>
 
 <div class="mat-elevation-z3">
-
   <table *ngIf="!isLoadingResults" mat-table [dataSource]="dataSource" matSort>
 
     <!-- ID Column -->
@@ -55,7 +54,7 @@
     </ng-container>
 
     <ng-container matColumnDef="actions" justify="end">
-      <th mat-header-cell *matHeaderCellDef><a mat-raised-button routerLink="add/" class="mr-1">Create Account</a>
+      <th mat-header-cell *matHeaderCellDef><a mat-raised-button routerLink="../../add/" class="mr-1">Create Account</a>
       </th>
       <td mat-cell *matCellDef="let row">
         <a mat-raised-button routerLink="../../edit/{{row.id}}" color="primary" class="mr-1">Edit</a>
