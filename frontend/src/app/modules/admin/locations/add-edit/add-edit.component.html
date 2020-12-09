@@ -1,1 +1,67 @@
-<h1>Location Edit</h1>
+<h1>Create Location</h1>
+<mat-divider class="pb-3"></mat-divider>
+<mat-card>
+  <form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+        <mat-form-field fxFlex appearance="outline" class="w-100">
+          <mat-label>
+            Address Line:
+          </mat-label>
+          <input matInput placeholder="Enter address" formControlName="addressLine1">
+        </mat-form-field>
+        <mat-form-field fxFlex appearance="outline" class="w-100">
+            <mat-label>
+              ZipCode:
+            </mat-label>
+            <input matInput placeholder="Enter zipCode" formControlName="zipCode">
+          </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+      <mat-form-field fxFlex="50" appearance="outline" class="w-100">
+        <mat-label>
+          City
+        </mat-label>
+        <input type="text" placeholder="City" aria-label="City" matInput 
+          formControlName="city">
+      </mat-form-field>
+      <mat-form-field fxFlex="50" appearance="outline" class="w-100">
+        <mat-label>
+          State
+        </mat-label>
+        <input type="text" placeholder="State" aria-label="State" matInput 
+          formControlName="state">
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+      <mat-form-field fxFlex="25" appearance="outline" class="w-100">
+        <mat-label>OnSite</mat-label>
+        <mat-select formControlName="onsite">
+            <mat-option [value]="true">Yes</mat-option>
+            <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="50" appearance="outline">
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="project">
+          <mat-option value="true">
+            Active
+          </mat-option>
+          <mat-option value="false">
+            Inactive
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" appearance="outline" class="w-100">
+        <mat-label>Track</mat-label>
+        <input matInput placeholder="time" formControlName="track">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="grow"></div>
+      <div fxFlex="noshrink">
+        <button class="mr-3" color="primary" mat-raised-button>Submit</button>
+        <button type="button" color="primary" mat-raised-button (click)="locationForm.reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+</mat-card>

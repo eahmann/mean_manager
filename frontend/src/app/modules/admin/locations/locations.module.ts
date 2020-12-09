@@ -8,10 +8,12 @@ import { MapDialogComponent } from './map-dialog/map-dialog.component';
 import { AgmCoreModule } from '@agm/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTimepickerModule } from 'mat-timepicker';
+import { AddEditComponent } from './add-edit/add-edit.component';
 
 
 @NgModule({
-  declarations: [ListComponent],
+  declarations: [AddEditComponent, ListComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,6 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     LocationsRoutingModule,
     GoogleMapsModule,
+    MatTimepickerModule, 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC8yZHv0yb9MgJWYMuMsNF4BEzxA9vSswA'
     })
